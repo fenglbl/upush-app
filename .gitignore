@@ -1,0 +1,25 @@
+.hbuilderx/
+unpackage/
+.env
+*.env
+!.env.example
+
+# dependencies cache
+node_modules/
+
+# logs
+*.log
+
+# archives
+*.zip
+
+# signing files
+*.keystore
+*.jks
+
+# runtime cache
+upushServer/unipush/getui_token_cache.json
+
+# OS/editor files
+.DS_Store
+Thumbs.db
