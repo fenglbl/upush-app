@@ -1,5 +1,6 @@
 .hbuilderx/
 unpackage/
+uniCloud-aliyun/
 .env
 *.env
 !.env.example
