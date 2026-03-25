@@ -1,14 +1,7 @@
 module.exports = {
-  db_host:"110.185.163.31",
-  db_port:"27017",
-  db_user:"admin",
-  db_password:"Mqp6539593123",
-  db_name:"upush"
+  db_host: process.env.DB_HOST,
+  db_port: process.env.DB_PORT,
+  db_user: process.env.DB_USER,
+  db_password: process.env.DB_PASSWORD,
+  db_name: process.env.DB_NAME
 }
-// module.exports = {
-//   db_host:"192.168.110.59",
-//   db_port:"27000",
-//   db_user:"admin",
-//   db_password:"Mqp6539593123",
-//   db_name:"upush"
-// }
