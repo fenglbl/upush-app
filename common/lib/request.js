@@ -45,7 +45,7 @@ const interceptors = {
       })
       setTimeout(()=>{
         uni.navigateTo({
-          url:"/pages/index/index"
+          url:"/pages/login/index"
         })
       },1500)
     }else{
