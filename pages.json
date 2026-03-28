@@ -9,6 +9,13 @@
       }
     },
     {
+      "path" : "pages/mine/index",
+      "style" : 
+      {
+        "navigationBarTitleText" : "upsh"
+      }
+    },
+    {
       "path": "pages/login/index",
       "style": {
         "navigationBarTitleText": "upsh"
@@ -26,6 +33,22 @@
     "navigationBarTitleText": "upsh",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7f8fa4",
+    "selectedColor": "#1c8ef5",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的"
+      }
+    ]
   },
   "uniIdRouter": {}
 }

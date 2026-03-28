@@ -6,7 +6,11 @@ const messages = {
       lightMode: '日间模式',
       loadingAll: '已加载全部数据',
       networkError: '网络异常',
-      goLogin: '去登录'
+      goLogin: '去登录',
+      tabHome: '首页',
+      tabMine: '我的',
+      language: '语言',
+      logout: '退出登录'
     },
     login: {
       eyebrow: '消息直达',
@@ -43,6 +47,16 @@ const messages = {
       currentUserId: '当前用户 ID',
       emptyTitle: '当前未登录',
       emptyDesc: '登录后可查看推送消息记录，并实时接收新的消息提醒。'
+    },
+    mine: {
+      title: '我的',
+      subtitle: '管理账号信息、语言和登录状态',
+      nickname: '昵称',
+      username: '账号',
+      userId: '用户 ID',
+      languageLabel: '当前语言',
+      loginHint: '登录后可查看完整账号信息',
+      logoutSuccess: '已退出登录'
     }
   },
   en: {
@@ -52,7 +66,11 @@ const messages = {
       lightMode: 'Light Mode',
       loadingAll: 'All data loaded',
       networkError: 'Network error',
-      goLogin: 'Sign In'
+      goLogin: 'Sign In',
+      tabHome: 'Home',
+      tabMine: 'Me',
+      language: 'Language',
+      logout: 'Sign Out'
     },
     login: {
       eyebrow: 'Instant Reach',
@@ -89,6 +107,16 @@ const messages = {
       currentUserId: 'Current User ID',
       emptyTitle: 'Not signed in',
       emptyDesc: 'Sign in to view push history and receive new message alerts in real time.'
+    },
+    mine: {
+      title: 'Profile',
+      subtitle: 'Manage account info, language and sign-in status',
+      nickname: 'Nickname',
+      username: 'Username',
+      userId: 'User ID',
+      languageLabel: 'Current Language',
+      loginHint: 'Sign in to view full account information',
+      logoutSuccess: 'Signed out'
     }
   }
 }
