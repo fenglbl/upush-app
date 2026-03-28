@@ -8,21 +8,21 @@
         <view class="logo-box">
           <image class="logo" src="/static/upush_logo.png"></image>
           <view class="hero-copy">
-            <text class="eyebrow">{{ $t('login.eyebrow') }}</text>
-            <text class="logo-text">{{ $t('login.title') }}</text>
-            <text class="sub-text">{{ $t('login.subtitle') }}</text>
+            <text class="eyebrow">{{ tr('login.eyebrow') }}</text>
+            <text class="logo-text">{{ tr('login.title') }}</text>
+            <text class="sub-text">{{ tr('login.subtitle') }}</text>
           </view>
         </view>
         <view class="form-box">
           <view class="input-box theme-card">
-            <input class="input" type="text" :placeholder="$t('login.usernamePlaceholder')" placeholder-class="placeholder" v-model="username" />
+            <input class="input" type="text" :placeholder="tr('login.usernamePlaceholder')" placeholder-class="placeholder" v-model="username" />
           </view>
           <view class="input-box theme-card">
-            <input class="input" type="text" :placeholder="$t('login.passwordPlaceholder')" placeholder-class="placeholder" v-model="password" password />
+            <input class="input" type="text" :placeholder="tr('login.passwordPlaceholder')" placeholder-class="placeholder" v-model="password" password />
           </view>
         </view>
-        <view class="reg">{{ $t('login.noAccount') }}<text class="link" @click="toRegister">{{ $t('login.register') }}</text></view>
-        <button class="button theme-primary-button" @click="login">{{ $t('login.submit') }}</button>
+        <view class="reg">{{ tr('login.noAccount') }}<text class="link" @click="toRegister">{{ tr('login.register') }}</text></view>
+        <button class="button theme-primary-button" @click="login">{{ tr('login.submit') }}</button>
       </view>
     </view>
 	</view>
@@ -61,6 +61,9 @@
       toggleLocale() {
         this.locale = this.$setLocale(this.locale === 'zh' ? 'en' : 'zh')
       },
+      tr(path) {
+        return this.$t(path, this.locale)
+      },
       applyNavTheme() {
         const isDark = this.theme === 'dark'
         uni.setNavigationBarColor({
@@ -70,11 +73,11 @@
       },
       async login() {
         if (!this.username) {
-          uni.showToast({ icon: 'none', title: this.$t('login.usernameRequired') })
+          uni.showToast({ icon: 'none', title: this.tr('login.usernameRequired') })
           return
         }
         if (!this.password) {
-          uni.showToast({ icon: 'none', title: this.$t('login.passwordRequired') })
+          uni.showToast({ icon: 'none', title: this.tr('login.passwordRequired') })
           return
         }
         const cid = uni.getStorageSync('cid')

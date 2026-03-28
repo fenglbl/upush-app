@@ -8,24 +8,24 @@
         <view class="logo-box">
           <image class="logo" src="/static/upush_logo.png"></image>
           <view class="hero-copy">
-            <text class="eyebrow">{{ $t('register.eyebrow') }}</text>
-            <text class="logo-text">{{ $t('register.title') }}</text>
-            <text class="sub-text">{{ $t('register.subtitle') }}</text>
+            <text class="eyebrow">{{ tr('register.eyebrow') }}</text>
+            <text class="logo-text">{{ tr('register.title') }}</text>
+            <text class="sub-text">{{ tr('register.subtitle') }}</text>
           </view>
         </view>
         <view class="form-box">
           <view class="input-box theme-card">
-            <input class="input" type="text" :placeholder="$t('register.usernamePlaceholder')" placeholder-class="placeholder" v-model="username" />
+            <input class="input" type="text" :placeholder="tr('register.usernamePlaceholder')" placeholder-class="placeholder" v-model="username" />
           </view>
           <view class="input-box theme-card">
-            <input class="input" type="password" :placeholder="$t('register.passwordPlaceholder')" placeholder-class="placeholder" v-model="password" password />
+            <input class="input" type="password" :placeholder="tr('register.passwordPlaceholder')" placeholder-class="placeholder" v-model="password" password />
           </view>
           <view class="input-box theme-card">
-            <input class="input" type="password" :placeholder="$t('register.confirmPasswordPlaceholder')" placeholder-class="placeholder" v-model="confirmPassword" password />
+            <input class="input" type="password" :placeholder="tr('register.confirmPasswordPlaceholder')" placeholder-class="placeholder" v-model="confirmPassword" password />
           </view>
         </view>
-        <view class="reg">{{ $t('register.hasAccount') }}<text class="link" @click="toLogin">{{ $t('register.goLogin') }}</text></view>
-        <button class="button theme-primary-button" @click="register">{{ $t('register.submit') }}</button>
+        <view class="reg">{{ tr('register.hasAccount') }}<text class="link" @click="toLogin">{{ tr('register.goLogin') }}</text></view>
+        <button class="button theme-primary-button" @click="register">{{ tr('register.submit') }}</button>
       </view>
     </view>
   </view>
@@ -64,6 +64,9 @@
       toggleLocale() {
         this.locale = this.$setLocale(this.locale === 'zh' ? 'en' : 'zh')
       },
+      tr(path) {
+        return this.$t(path, this.locale)
+      },
       applyNavTheme() {
         const isDark = this.theme === 'dark'
         uni.setNavigationBarColor({
@@ -73,23 +76,23 @@
       },
       validateForm() {
         if (!this.username) {
-          uni.showToast({ icon: 'none', title: this.$t('register.usernameRequired') })
+          uni.showToast({ icon: 'none', title: this.tr('register.usernameRequired') })
           return false
         }
         if (!this.password) {
-          uni.showToast({ icon: 'none', title: this.$t('register.passwordRequired') })
+          uni.showToast({ icon: 'none', title: this.tr('register.passwordRequired') })
           return false
         }
         if (this.password.length < 6) {
-          uni.showToast({ icon: 'none', title: this.$t('register.passwordMin') })
+          uni.showToast({ icon: 'none', title: this.tr('register.passwordMin') })
           return false
         }
         if (!this.confirmPassword) {
-          uni.showToast({ icon: 'none', title: this.$t('register.confirmPasswordRequired') })
+          uni.showToast({ icon: 'none', title: this.tr('register.confirmPasswordRequired') })
           return false
         }
         if (this.password !== this.confirmPassword) {
-          uni.showToast({ icon: 'none', title: this.$t('register.passwordMismatch') })
+          uni.showToast({ icon: 'none', title: this.tr('register.passwordMismatch') })
           return false
         }
         return true
@@ -103,7 +106,7 @@
           password: this.password
         })
         if (res.code === 200) {
-          this.$toast(res.msg || this.$t('register.success'), () => {
+          this.$toast(res.msg || this.tr('register.success'), () => {
             uni.navigateBack({
               delta: 1
             })

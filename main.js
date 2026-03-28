@@ -11,7 +11,7 @@ export function createApp() {
   app.config.globalProperties.$apis = apis
   app.config.globalProperties.$toast = toast
   app.config.globalProperties.$formatTime = formatTime
-  app.config.globalProperties.$t = (path) => t(path, getLocale())
+  app.config.globalProperties.$t = (path, locale) => t(path, locale || getLocale())
   app.config.globalProperties.$getLocale = getLocale
   app.config.globalProperties.$setLocale = setLocale
 

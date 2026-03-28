@@ -3,8 +3,8 @@
     <view class="home-shell">
       <view class="toolbar">
         <view>
-          <view class="toolbar-title">{{ $t('home.title') }}</view>
-          <view class="toolbar-subtitle">{{ $t('home.subtitle') }}</view>
+          <view class="toolbar-title">{{ tr('home.title') }}</view>
+          <view class="toolbar-subtitle">{{ tr('home.subtitle') }}</view>
         </view>
         <view class="toolbar-actions">
           <button class="theme-switch" @click="toggleLocale">{{ localeButtonText }}</button>
@@ -12,7 +12,7 @@
       </view>
 
       <view class="device-id theme-card">
-        <view class="label">{{ $t('home.currentUserId') }}</view>
+        <view class="label">{{ tr('home.currentUserId') }}</view>
         <view class="cid" @click="copy">{{ uid }}</view>
       </view>
 
@@ -22,13 +22,13 @@
           <view class="content" v-html="item.content"></view>
           <view class="time">{{ formatTime(item.create_time) }}</view>
         </view>
-        <view class="nomore" v-if="page >= total">{{ $t('common.loadingAll') }}</view>
+        <view class="nomore" v-if="page >= total">{{ tr('common.loadingAll') }}</view>
       </view>
 
       <view v-else class="empty-state theme-card">
-        <view class="empty-title">{{ $t('home.emptyTitle') }}</view>
-        <view class="empty-desc">{{ $t('home.emptyDesc') }}</view>
-        <button class="login-button theme-primary-button" @click="navTo">{{ $t('common.goLogin') }}</button>
+        <view class="empty-title">{{ tr('home.emptyTitle') }}</view>
+        <view class="empty-desc">{{ tr('home.emptyDesc') }}</view>
+        <button class="login-button theme-primary-button" @click="navTo">{{ tr('common.goLogin') }}</button>
       </view>
     </view>
   </view>
@@ -94,6 +94,9 @@
     methods: {
       toggleLocale() {
         this.locale = this.$setLocale(this.locale === 'zh' ? 'en' : 'zh')
+      },
+      tr(path) {
+        return this.$t(path, this.locale)
       },
       applyNavTheme() {
         const isDark = this.theme === 'dark'
