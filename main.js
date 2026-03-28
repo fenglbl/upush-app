@@ -4,9 +4,12 @@ import { createSSRApp } from 'vue'
 import apis from '@/common/api/index.js'
 import { formatTime, toast } from '@/common/lib/app.js'
 import { applyTabBarI18n, applyTabBarTheme, getLocale, setLocale, t } from '@/common/lib/i18n.js'
+import { setupVant } from '@/common/lib/vant.js'
 
 export function createApp() {
   const app = createSSRApp(App)
+
+  setupVant(app)
 
   app.config.globalProperties.$apis = apis
   app.config.globalProperties.$toast = toast

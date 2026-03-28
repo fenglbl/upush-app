@@ -32,10 +32,17 @@
       "style": {
         "navigationBarTitleText": "upsh"
       }
+    },
+    {
+      "path": "pages/vant-demo/index",
+      "style": {
+        "navigationBarTitleText": "Vant Demo"
+      }
     }
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
+    "navigationStyle": "custom",
     "navigationBarTitleText": "upsh",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
