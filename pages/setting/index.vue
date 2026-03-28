@@ -1,11 +1,18 @@
 <template>
   <view class="theme-page theme-panel" :class="themeClass">
     <view class="setting-shell">
+      <uv-navbar
+        :title="tr('setting.title')"
+        :autoBack="true"
+        :placeholder="true"
+        :safeAreaInsetTop="true"
+        :bgColor="navBackgroundColor"
+        :titleStyle="{ color: navTitleColor }"
+        :leftIconColor="navTitleColor"
+      ></uv-navbar>
+
       <view class="toolbar">
-        <view>
-          <view class="toolbar-title">{{ tr('setting.title') }}</view>
-          <view class="toolbar-subtitle">{{ tr('setting.subtitle') }}</view>
-        </view>
+        <view class="toolbar-subtitle">{{ tr('setting.subtitle') }}</view>
       </view>
 
       <view class="setting-card theme-card">
@@ -50,6 +57,12 @@
     computed: {
       themeClass() {
         return this.theme === 'dark' ? 'theme-dark' : 'theme-light'
+      },
+      navBackgroundColor() {
+        return this.theme === 'dark' ? '#0f1d2c' : '#f5f9ff'
+      },
+      navTitleColor() {
+        return this.theme === 'dark' ? '#ffffff' : '#17324d'
       }
     },
     methods: {
@@ -94,15 +107,8 @@
   margin-bottom: 28rpx;
 }
 
-.toolbar-title {
-  font-size: 48rpx;
-  line-height: 56rpx;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
 .toolbar-subtitle {
-  margin-top: 10rpx;
+  margin-top: 8rpx;
   color: var(--text-secondary);
 }
 

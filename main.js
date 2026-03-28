@@ -4,9 +4,14 @@ import { createSSRApp } from 'vue'
 import apis from '@/common/api/index.js'
 import { formatTime, toast } from '@/common/lib/app.js'
 import { applyTabBarI18n, applyTabBarTheme, getLocale, setLocale, t } from '@/common/lib/i18n.js'
+import uvUI from '@/uni_modules/uv-ui-tools'
+
 
 export function createApp() {
   const app = createSSRApp(App)
+  // #ifdef VUE3
+  app.use(uvUI);
+  // #endif
 
   app.config.globalProperties.$apis = apis
   app.config.globalProperties.$toast = toast

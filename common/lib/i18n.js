@@ -16,6 +16,7 @@ const messages = {
       settingDesc: '统一管理主题和语言偏好'
     },
     login: {
+      navTitle: '登录',
       eyebrow: '消息直达',
       title: '欢迎登录',
       subtitle: '统一管理设备接收、推送消息与消息列表。',
@@ -28,6 +29,7 @@ const messages = {
       passwordRequired: '请输入密码'
     },
     register: {
+      navTitle: '注册',
       eyebrow: '创建账号',
       title: '欢迎注册',
       subtitle: '填写基础信息后即可创建 upush 账号并返回登录。',
@@ -93,6 +95,7 @@ const messages = {
       settingDesc: 'Manage theme and language preferences in one place'
     },
     login: {
+      navTitle: 'Sign In',
       eyebrow: 'Instant Reach',
       title: 'Welcome Back',
       subtitle: 'Manage device delivery, push messages and message feeds in one place.',
@@ -105,6 +108,7 @@ const messages = {
       passwordRequired: 'Please enter password'
     },
     register: {
+      navTitle: 'Register',
       eyebrow: 'Create Account',
       title: 'Join upush',
       subtitle: 'Fill in the basics to create your upush account and return to sign in.',
