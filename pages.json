@@ -42,11 +42,15 @@
     "list": [
       {
         "pagePath": "pages/home/index",
-        "text": "首页"
+        "text": "首页",
+        "iconPath": "static/tabbar-home.png",
+        "selectedIconPath": "static/tabbar-home-active.png"
       },
       {
         "pagePath": "pages/mine/index",
-        "text": "我的"
+        "text": "我的",
+        "iconPath": "static/tabbar-mine.png",
+        "selectedIconPath": "static/tabbar-mine-active.png"
       }
     ]
   },
