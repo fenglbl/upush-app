@@ -1,8 +1,10 @@
+import { getBaseUrl } from '@/common/lib/env.js'
+
 export default {
   callFunction(params){
     return new Promise((resolve,reject)=>{
       uni.request({
-        url:"http://110.185.163.31:3000/cloudfunction",
+        url:`${getBaseUrl()}/cloudfunction`,
         method:"POST",
         data:{
           functionName:params.name,
