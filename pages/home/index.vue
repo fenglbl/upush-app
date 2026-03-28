@@ -4,10 +4,20 @@
       <app-navbar :title="tr('home.navTitle')" :theme="theme" :autoBack="false" :showBack="false"></app-navbar>
       <view class="toolbar-subtitle">{{ tr('home.subtitle') }}</view>
 
-      <view class="device-id theme-card">
-        <view class="label">{{ tr('home.currentUserId') }}</view>
-        <view class="cid" @click="copy">{{ uid }}</view>
-      </view>
+      <uv-cell-group class="info-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 28rpx; background: var(--surface-bg); border: 1rpx solid var(--border-color); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
+        <uv-cell
+          :title="tr('home.currentUserId')"
+          :label="tr('home.tapToCopy')"
+          :value="uid || '--'"
+          isLink
+          :border="false"
+          :cellStyle="cellStyle"
+          :titleStyle="cellTitleStyle"
+          :labelStyle="cellLabelStyle"
+          :valueStyle="cellValueStyle"
+          @click="copy"
+        ></uv-cell>
+      </uv-cell-group>
 
       <view class="list" v-if="token">
         <view class="list-item theme-card" v-for="(item, index) of list" :key="index">
@@ -15,13 +25,13 @@
           <view class="content" v-html="item.content"></view>
           <view class="time">{{ formatTime(item.create_time) }}</view>
         </view>
-        <view class="nomore" v-if="page >= total">{{ tr('common.loadingAll') }}</view>
+        <uv-load-more v-if="page >= total" status="nomore" :nomoreText="tr('common.loadingAll')"></uv-load-more>
       </view>
 
       <view v-else class="empty-state theme-card">
-        <view class="empty-title">{{ tr('home.emptyTitle') }}</view>
+        <uv-empty mode="list" :text="tr('home.emptyTitle')"></uv-empty>
         <view class="empty-desc">{{ tr('home.emptyDesc') }}</view>
-        <button class="login-button theme-primary-button" @click="navTo">{{ tr('common.goLogin') }}</button>
+        <uv-button type="primary" shape="circle" size="large" customStyle="height: 92rpx; margin-top: 44rpx;" @click="navTo">{{ tr('common.goLogin') }}</uv-button>
       </view>
     </view>
   </view>
@@ -83,6 +93,28 @@
     computed: {
       themeClass() {
         return this.theme === 'dark' ? 'theme-dark' : 'theme-light'
+      },
+      cellStyle() {
+        return {
+          background: 'var(--surface-bg)',
+          color: 'var(--text-primary)'
+        }
+      },
+      cellTitleStyle() {
+        return {
+          color: 'var(--text-primary)',
+          fontWeight: '600'
+        }
+      },
+      cellLabelStyle() {
+        return {
+          color: 'var(--text-secondary)'
+        }
+      },
+      cellValueStyle() {
+        return {
+          color: 'var(--accent-color)'
+        }
       }
     },
     methods: {
@@ -136,29 +168,6 @@
   color: var(--text-secondary);
 }
 
-.device-id {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 148rpx;
-  padding: 28rpx 30rpx;
-  border-radius: 28rpx;
-  margin-bottom: 28rpx;
-
-  .label {
-    color: var(--text-secondary);
-    margin-bottom: 14rpx;
-  }
-
-  .cid {
-    display: inline-flex;
-    align-items: center;
-    color: var(--accent-color);
-    border-bottom: 1rpx solid var(--accent-color);
-    font-size: 28rpx;
-  }
-}
-
 .list {
   .list-item {
     margin-bottom: 20rpx;
@@ -203,32 +212,6 @@
       color: var(--text-muted);
     }
   }
-
-  .nomore {
-    padding: 40rpx;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-
-    &::after {
-      content: '';
-      display: inline-block;
-      width: 80rpx;
-      height: 2rpx;
-      background-color: var(--text-muted);
-      margin-left: 20rpx;
-    }
-
-    &::before {
-      content: '';
-      display: inline-block;
-      width: 80rpx;
-      height: 2rpx;
-      background-color: var(--text-muted);
-      margin-right: 20rpx;
-    }
-  }
 }
 
 .empty-state {
@@ -238,24 +221,8 @@
   text-align: center;
 }
 
-.empty-title {
-  font-size: 36rpx;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
 .empty-desc {
   margin-top: 18rpx;
   color: var(--text-secondary);
-}
-
-.login-button {
-  margin: 44rpx auto 0;
-  width: 100%;
-  height: 92rpx;
-  line-height: 92rpx;
-  border-radius: 22rpx;
-  font-size: 30rpx;
-  font-weight: 600;
 }
 </style>

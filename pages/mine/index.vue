@@ -208,4 +208,8 @@
 .action-list {
   margin-top: 28rpx;
 }
+
+.cell-group :deep(.uv-cell__value) {
+  font-weight: 500;
+}
 </style>

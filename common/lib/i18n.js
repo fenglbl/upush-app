@@ -51,6 +51,7 @@ const messages = {
       title: '消息中心',
       subtitle: '实时查看设备接收到的推送消息',
       currentUserId: '当前用户 ID',
+      tapToCopy: '点击复制',
       emptyTitle: '当前未登录',
       emptyDesc: '登录后可查看推送消息记录，并实时接收新的消息提醒。'
     },
@@ -134,6 +135,7 @@ const messages = {
       title: 'Message Center',
       subtitle: 'Check push messages received by this device in real time',
       currentUserId: 'Current User ID',
+      tapToCopy: 'Tap to copy',
       emptyTitle: 'Not signed in',
       emptyDesc: 'Sign in to view push history and receive new message alerts in real time.'
     },

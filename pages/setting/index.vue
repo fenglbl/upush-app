@@ -149,4 +149,8 @@
   align-items: center;
   gap: 12rpx;
 }
+
+.cell-group :deep(.uv-cell__label) {
+  line-height: 36rpx;
+}
 </style>
