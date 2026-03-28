@@ -47,6 +47,7 @@ const messages = {
       success: '注册成功'
     },
     home: {
+      navTitle: '首页',
       title: '消息中心',
       subtitle: '实时查看设备接收到的推送消息',
       currentUserId: '当前用户 ID',
@@ -54,6 +55,7 @@ const messages = {
       emptyDesc: '登录后可查看推送消息记录，并实时接收新的消息提醒。'
     },
     mine: {
+      navTitle: '我的',
       title: '我的',
       subtitle: '管理账号信息、语言和登录状态',
       nickname: '昵称',
@@ -128,6 +130,7 @@ const messages = {
       success: 'Registration successful'
     },
     home: {
+      navTitle: 'Home',
       title: 'Message Center',
       subtitle: 'Check push messages received by this device in real time',
       currentUserId: 'Current User ID',
@@ -135,6 +138,7 @@ const messages = {
       emptyDesc: 'Sign in to view push history and receive new message alerts in real time.'
     },
     mine: {
+      navTitle: 'Profile',
       title: 'Profile',
       subtitle: 'Manage account info, language and sign-in status',
       nickname: 'Nickname',

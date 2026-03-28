@@ -1,12 +1,8 @@
 <template>
   <view class="theme-page theme-panel" :class="themeClass">
     <view class="mine-shell">
-      <view class="toolbar">
-        <view>
-          <view class="toolbar-title">{{ tr('mine.title') }}</view>
-          <view class="toolbar-subtitle">{{ tr('mine.subtitle') }}</view>
-        </view>
-      </view>
+      <app-navbar :title="tr('mine.navTitle')" :theme="theme" :autoBack="false"></app-navbar>
+      <view class="toolbar-subtitle">{{ tr('mine.subtitle') }}</view>
 
       <view class="profile-card theme-card">
         <view class="avatar">{{ avatarText }}</view>
@@ -18,10 +14,10 @@
 
       <view class="section-title">{{ tr('mine.accountInfo') }}</view>
       <uv-cell-group class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); border: 1rpx solid var(--border-color); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
-        <uv-cell :title="tr('mine.nickname')" :value="userInfo.nickname || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle"></uv-cell>
-        <uv-cell :title="tr('mine.username')" :value="userInfo.username || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle"></uv-cell>
-        <uv-cell :title="tr('mine.userId')" :value="userInfo.id || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle"></uv-cell>
-        <uv-cell :title="tr('mine.languageLabel')" :value="locale === 'zh' ? tr('setting.chinese') : tr('setting.english')" :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle"></uv-cell>
+        <uv-cell :title="tr('mine.nickname')" :value="userInfo.nickname || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('mine.username')" :value="userInfo.username || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('mine.userId')" :value="userInfo.id || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('mine.languageLabel')" :value="locale === 'zh' ? tr('setting.chinese') : tr('setting.english')" :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
       </uv-cell-group>
 
       <uv-cell-group class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 28rpx; background: var(--surface-bg); border: 1rpx solid var(--border-color); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
@@ -32,6 +28,8 @@
           :border="false"
           :cellStyle="cellStyle"
           :titleStyle="cellTitleStyle"
+          :labelStyle="cellLabelStyle"
+          :valueStyle="cellValueStyle"
           @click="goSetting"
         ></uv-cell>
       </uv-cell-group>
@@ -100,6 +98,16 @@
           color: 'var(--text-primary)',
           fontWeight: '600'
         }
+      },
+      cellLabelStyle() {
+        return {
+          color: 'var(--text-secondary)'
+        }
+      },
+      cellValueStyle() {
+        return {
+          color: 'var(--text-secondary)'
+        }
       }
     },
     methods: {
@@ -149,22 +157,8 @@
   padding: 36rpx 28rpx 48rpx;
 }
 
-.toolbar {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 28rpx;
-}
-
-.toolbar-title {
-  font-size: 48rpx;
-  line-height: 56rpx;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
 .toolbar-subtitle {
-  margin-top: 10rpx;
+  margin-bottom: 28rpx;
   color: var(--text-secondary);
 }
 

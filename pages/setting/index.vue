@@ -9,7 +9,7 @@
 
       <view class="section-title">{{ tr('setting.preferenceGroup') }}</view>
       <uv-cell-group class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg);  box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
-        <uv-cell :title="tr('setting.themeTitle')" :label="tr('setting.themeDesc')" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle">
+        <uv-cell :title="tr('setting.themeTitle')" :label="tr('setting.themeDesc')" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle">
           <template #value>
             <view class="cell-actions">
               <uv-button
@@ -27,7 +27,7 @@
             </view>
           </template>
         </uv-cell>
-        <uv-cell :title="tr('setting.languageTitle')" :label="tr('setting.languageDesc')" :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle">
+        <uv-cell :title="tr('setting.languageTitle')" :label="tr('setting.languageDesc')" :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle">
           <template #value>
             <view class="cell-actions">
               <uv-button
@@ -78,6 +78,16 @@
         return {
           color: 'var(--text-primary)',
           fontWeight: '600'
+        }
+      },
+      cellLabelStyle() {
+        return {
+          color: 'var(--text-secondary)'
+        }
+      },
+      cellValueStyle() {
+        return {
+          color: 'var(--text-secondary)'
         }
       }
     },
