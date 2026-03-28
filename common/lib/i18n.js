@@ -201,3 +201,22 @@ export function applyTabBarI18n(locale) {
     })
   })
 }
+
+export function applyTabBarTheme(theme) {
+  const currentTheme = theme === 'dark' ? 'dark' : 'light'
+  const style = currentTheme === 'dark'
+    ? {
+        color: '#8fa2b8',
+        selectedColor: '#54b2ff',
+        backgroundColor: '#132638',
+        borderStyle: 'white'
+      }
+    : {
+        color: '#7f8fa4',
+        selectedColor: '#1c8ef5',
+        backgroundColor: '#ffffff',
+        borderStyle: 'black'
+      }
+
+  uni.setTabBarStyle(style)
+}

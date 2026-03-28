@@ -57,6 +57,7 @@
         this.theme = uni.getStorageSync('appTheme') || 'light'
         this.locale = this.$getLocale()
         this.$applyTabBarI18n(this.locale)
+        this.$applyTabBarTheme(this.theme)
         this.applyNavTheme()
       },
       tr(path) {
@@ -65,6 +66,7 @@
       setTheme(theme) {
         this.theme = theme
         uni.setStorageSync('appTheme', theme)
+        this.$applyTabBarTheme(this.theme)
         this.applyNavTheme()
       },
       setAppLocale(locale) {

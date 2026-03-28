@@ -3,7 +3,7 @@ import './uni.promisify.adaptor'
 import { createSSRApp } from 'vue'
 import apis from '@/common/api/index.js'
 import { formatTime, toast } from '@/common/lib/app.js'
-import { applyTabBarI18n, getLocale, setLocale, t } from '@/common/lib/i18n.js'
+import { applyTabBarI18n, applyTabBarTheme, getLocale, setLocale, t } from '@/common/lib/i18n.js'
 
 export function createApp() {
   const app = createSSRApp(App)
@@ -15,6 +15,7 @@ export function createApp() {
   app.config.globalProperties.$getLocale = getLocale
   app.config.globalProperties.$setLocale = setLocale
   app.config.globalProperties.$applyTabBarI18n = applyTabBarI18n
+  app.config.globalProperties.$applyTabBarTheme = applyTabBarTheme
 
   return {
     app
