@@ -1,29 +1,51 @@
 # upush-app
 
-一个基于 `uni-app` 的消息推送示例项目，包含移动端客户端与 Node.js 服务端，适合用来快速搭建简单的登录、消息推送、消息列表展示流程。
+一个基于 `uni-app` 的消息推送示例项目，包含移动端客户端与 Node.js 服务端，适合用来快速搭建简单的登录、注册、消息推送、消息列表展示流程。
 
 ## 项目简介
 
 本项目主要由两部分组成：
 
-- `uni-app` 客户端：负责登录、接收推送消息、查看消息列表
+- `uni-app` 客户端：负责登录、注册、接收推送消息、查看消息列表
 - `upushServer` 服务端：负责云函数风格接口转发、消息推送调用、数据库连接
 
-当前仓库已对部分敏感配置做了拆分处理：
+当前仓库已完成一轮基础工程整理：
 
 - 个推配置改为从环境变量读取
 - MongoDB 配置改为从环境变量读取
 - token 缓存文件不会进入 Git
 - `uniCloud-aliyun/` 目录默认不上传到仓库
+- 客户端运行模式已迁移到 `Vue 3`
+- 客户端已接入中英文国际化
+
+## 当前状态
+
+### 前端技术现状
+
+- 当前 `manifest.json` 已启用 `Vue 3`
+- 前端入口已使用 `createSSRApp` 和 `app.config.globalProperties`
+- 页面仍以 `Options API` 为主，这在 uni-app 的 Vue 3 模式下是可正常运行的
+- 首页原有 Vue 2 过滤器写法已经移除，改为普通工具方法调用
+
+### 国际化现状
+
+- 当前支持两种语言：`中文` / `English`
+- 默认语言跟随系统语言自动初始化
+- 当前语言会持久化保存到本地 `appLocale`
+- 登录页、注册页、首页及部分通用提示已接入国际化
+- 国际化实现位于 `common/lib/i18n.js`
 
 ## 功能特性
 
 - 用户登录
+- 用户注册
 - 拉取推送消息列表
 - 服务端统一处理云函数调用
 - 对接个推推送服务
 - MongoDB 持久化存储
 - uni-app 多端项目结构
+- 日间 / 夜间主题切换
+- 中文 / 英文语言切换
 
 ## 目录结构
 
@@ -34,12 +56,19 @@
 |-- manifest.json
 |-- pages.json
 |-- pages/
-|   `-- index/
-|       |-- home.vue
+|   |-- home/
+|   |   `-- index.vue
+|   |-- login/
+|   |   `-- index.vue
+|   `-- register/
 |       `-- index.vue
 |-- common/
 |   |-- api/
 |   `-- lib/
+|       |-- app.js
+|       |-- cloudfunctions.js
+|       |-- i18n.js
+|       `-- request.js
 |-- static/
 |-- uni_modules/
 |-- upushServer/
@@ -48,7 +77,8 @@
 |   |-- db/
 |   |-- package.json
 |   `-- unipush/
-`-- README.md
+|-- README.md
+`-- LICENSE
 ```
 
 ## 运行环境
@@ -56,7 +86,7 @@
 ### 客户端
 
 - HBuilderX 5+
-- uni-app（Vue 2）
+- uni-app（Vue 3）
 
 ### 服务端
 
@@ -119,6 +149,12 @@ node app.js
 - H5
 - 各类小程序平台
 
+## 页面说明
+
+- `pages/login/index.vue`：登录页
+- `pages/register/index.vue`：注册页
+- `pages/home/index.vue`：首页 / 消息列表页
+
 ## 接口说明
 
 ### 服务端接口
@@ -130,16 +166,21 @@ node app.js
 - `GET /pushMessage`：通过查询参数提交推送消息
 - `GET /pushMessage/:id`：按用户或目标 ID 提交推送消息
 
-### 客户端主要页面
+### 客户端主要能力
 
-- `pages/index/index.vue`：登录页
-- `pages/index/home.vue`：消息列表页
+- 登录并缓存 token
+- 注册新账号
+- 拉取并分页展示推送消息
+- 按系统语言自动初始化界面语言
+- 支持手动切换中英文
+- 支持日间 / 夜间主题切换
 
 ## 已知事项
 
 - `common/lib/cloudfunctions.js` 当前仍使用硬编码服务端地址，部署前建议改为按环境配置
 - 仓库默认不包含 `uniCloud-aliyun/`，如果你依赖该目录，请自行本地维护或使用单独仓库存放
 - 推送能力依赖个推服务可用配置
+- 部分后端返回文案仍然是中文，如果要完全国际化，建议继续在前端做统一文案映射
 
 ## 安全建议
 
