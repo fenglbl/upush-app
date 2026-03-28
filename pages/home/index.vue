@@ -1,7 +1,7 @@
 <template>
   <view class="theme-page theme-panel" :class="themeClass">
     <view class="home-shell">
-      <app-navbar :title="tr('home.navTitle')" :theme="theme" :autoBack="false"></app-navbar>
+      <app-navbar :title="tr('home.navTitle')" :theme="theme" :autoBack="false" :showBack="false"></app-navbar>
       <view class="toolbar-subtitle">{{ tr('home.subtitle') }}</view>
 
       <view class="device-id theme-card">

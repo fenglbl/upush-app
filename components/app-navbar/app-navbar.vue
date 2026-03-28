@@ -2,6 +2,7 @@
   <uv-navbar
     :title="title"
     :autoBack="autoBack"
+    :leftIcon="showBack ? 'arrow-left' : ''"
     :placeholder="placeholder"
     :safeAreaInsetTop="safeAreaInsetTop"
     :bgColor="navBackgroundColor"
@@ -23,6 +24,10 @@ export default {
       default: 'light'
     },
     autoBack: {
+      type: Boolean,
+      default: true
+    },
+    showBack: {
       type: Boolean,
       default: true
     },

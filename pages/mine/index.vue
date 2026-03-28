@@ -1,7 +1,7 @@
 <template>
   <view class="theme-page theme-panel" :class="themeClass">
     <view class="mine-shell">
-      <app-navbar :title="tr('mine.navTitle')" :theme="theme" :autoBack="false"></app-navbar>
+      <app-navbar :title="tr('mine.navTitle')" :theme="theme" :autoBack="false" :showBack="false"></app-navbar>
       <view class="toolbar-subtitle">{{ tr('mine.subtitle') }}</view>
 
       <view class="profile-card theme-card">

@@ -4,6 +4,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const unipush = require('./unipush/index.js')
+const db = require('./db/index.js')
 
 
 const dir = './cloudfunctions'
@@ -27,6 +28,23 @@ const port = 3000
 
 app.use(cors());
 app.use(bodyParser.json()) 
+
+app.get('/health', async (req, res) => {
+  const database = await db.healthCheck()
+  const appStatus = database.status === 'UP' ? 'UP' : 'DEGRADED'
+
+  res.send({
+    code: database.status === 'UP' ? 200 : 503,
+    msg: database.status === 'UP' ? 'ok' : 'db error',
+    data: {
+      status: appStatus,
+      timestamp: Date.now(),
+      uptime: process.uptime(),
+      env: process.env.NODE_ENV || 'development',
+      database
+    }
+  })
+})
 
 app.post('/cloudfunction', async (req, res) => {
   // console.log( req.body);
@@ -115,4 +133,3 @@ async function pushMessage(pushData,req,res){
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-

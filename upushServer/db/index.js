@@ -14,11 +14,26 @@ client.connect().then(res=>{
   
 });
 
+async function healthCheck() {
+  try {
+    await client.db(dbConfig.db_name).admin().ping()
+    return {
+      status: 'UP'
+    }
+  } catch (error) {
+    return {
+      status: 'DOWN',
+      message: error.message
+    }
+  }
+}
+
 
 
 module.exports = {
   database(){
     return client.db(dbConfig.db_name)
   },
+  healthCheck,
   ObjectId
 }
