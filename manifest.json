@@ -119,7 +119,7 @@
     "uniStatistics" : {
         "enable" : false
     },
-    "vueVersion" : "2",
+    "vueVersion" : "3",
     "locale" : "auto",
     "h5" : {
         "unipush" : {

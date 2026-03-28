@@ -18,7 +18,7 @@
         <view class="list-item theme-card" v-for="(item, index) of list" :key="index">
           <view class="title"><view>{{ item.title }}</view></view>
           <view class="content" v-html="item.content"></view>
-          <view class="time">{{ item.create_time | getTime }}</view>
+          <view class="time">{{ formatTime(item.create_time) }}</view>
         </view>
         <view class="nomore" v-if="page >= total">已加载全部数据</view>
       </view>
@@ -57,7 +57,6 @@
       if (this.token) {
         this.page = 1
         this.init()
-        uni.startPullDownRefresh()
         uni.onPushMessage(() => {
           uni.stopPullDownRefresh()
           this.page = 1
@@ -124,6 +123,9 @@
         uni.navigateTo({
           url: '/pages/login/index'
         })
+      },
+      formatTime(value) {
+        return this.$formatTime(value)
       }
     }
   }
