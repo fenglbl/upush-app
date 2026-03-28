@@ -1,9 +1,6 @@
 <template>
   <view class="theme-page theme-panel" :class="themeClass">
     <view class="content">
-      <view class="toolbar-actions">
-        <button class="theme-switch" @click="toggleLocale">{{ localeButtonText }}</button>
-      </view>
       <view class="hero theme-card">
         <view class="logo-box">
           <image class="logo" src="/static/upush_logo.png"></image>
@@ -55,15 +52,9 @@
     computed: {
       themeClass() {
         return this.theme === 'dark' ? 'theme-dark' : 'theme-light'
-      },
-      localeButtonText() {
-        return this.locale === 'zh' ? 'EN' : '中文'
       }
     },
     methods: {
-      toggleLocale() {
-        this.locale = this.$setLocale(this.locale === 'zh' ? 'en' : 'zh')
-      },
       tr(path) {
         return this.$t(path, this.locale)
       },
@@ -129,13 +120,8 @@
   padding: 36rpx 28rpx 48rpx;
   min-height: 100vh;
 
-  .toolbar-actions {
-    display: flex;
-    justify-content: flex-end;
-  }
-
   .hero {
-    margin-top: 72rpx;
+    margin-top: 100rpx;
     padding: 40rpx 36rpx 48rpx;
     border-radius: 36rpx;
   }

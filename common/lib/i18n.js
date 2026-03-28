@@ -4,13 +4,16 @@ const messages = {
       appName: 'upush',
       darkMode: '夜间模式',
       lightMode: '日间模式',
+      theme: '主题',
       loadingAll: '已加载全部数据',
       networkError: '网络异常',
       goLogin: '去登录',
       tabHome: '首页',
       tabMine: '我的',
       language: '语言',
-      logout: '退出登录'
+      logout: '退出登录',
+      setting: '设置',
+      settingDesc: '统一管理主题和语言偏好'
     },
     login: {
       eyebrow: '消息直达',
@@ -55,8 +58,22 @@ const messages = {
       username: '账号',
       userId: '用户 ID',
       languageLabel: '当前语言',
+      settingEntry: '设置',
+      settingHint: '主题、语言与个性化偏好',
       loginHint: '登录后可查看完整账号信息',
       logoutSuccess: '已退出登录'
+    },
+    setting: {
+      title: '设置',
+      subtitle: '在这里统一管理界面偏好',
+      themeTitle: '外观模式',
+      themeDesc: '切换日间模式或夜间模式',
+      languageTitle: '界面语言',
+      languageDesc: '切换中文或英文界面',
+      dark: '夜间模式',
+      light: '日间模式',
+      chinese: '中文',
+      english: '英文'
     }
   },
   en: {
@@ -64,13 +81,16 @@ const messages = {
       appName: 'upush',
       darkMode: 'Dark Mode',
       lightMode: 'Light Mode',
+      theme: 'Theme',
       loadingAll: 'All data loaded',
       networkError: 'Network error',
       goLogin: 'Sign In',
       tabHome: 'Home',
       tabMine: 'Me',
       language: 'Language',
-      logout: 'Sign Out'
+      logout: 'Sign Out',
+      setting: 'Settings',
+      settingDesc: 'Manage theme and language preferences in one place'
     },
     login: {
       eyebrow: 'Instant Reach',
@@ -115,8 +135,22 @@ const messages = {
       username: 'Username',
       userId: 'User ID',
       languageLabel: 'Current Language',
+      settingEntry: 'Settings',
+      settingHint: 'Theme, language and personal preferences',
       loginHint: 'Sign in to view full account information',
       logoutSuccess: 'Signed out'
+    },
+    setting: {
+      title: 'Settings',
+      subtitle: 'Manage your interface preferences here',
+      themeTitle: 'Appearance',
+      themeDesc: 'Switch between light mode and dark mode',
+      languageTitle: 'Interface Language',
+      languageDesc: 'Switch between Chinese and English',
+      dark: 'Dark Mode',
+      light: 'Light Mode',
+      chinese: 'Chinese',
+      english: 'English'
     }
   }
 }

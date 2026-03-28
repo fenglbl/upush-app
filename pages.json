@@ -26,6 +26,12 @@
       "style": {
         "navigationBarTitleText": "upsh"
       }
+    },
+    {
+      "path": "pages/setting/index",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
     }
   ],
   "globalStyle": {

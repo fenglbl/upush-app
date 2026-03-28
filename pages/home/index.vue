@@ -6,9 +6,6 @@
           <view class="toolbar-title">{{ tr('home.title') }}</view>
           <view class="toolbar-subtitle">{{ tr('home.subtitle') }}</view>
         </view>
-        <view class="toolbar-actions">
-          <button class="theme-switch" @click="toggleLocale">{{ localeButtonText }}</button>
-        </view>
       </view>
 
       <view class="device-id theme-card">
@@ -86,15 +83,9 @@
     computed: {
       themeClass() {
         return this.theme === 'dark' ? 'theme-dark' : 'theme-light'
-      },
-      localeButtonText() {
-        return this.locale === 'zh' ? 'EN' : '中文'
       }
     },
     methods: {
-      toggleLocale() {
-        this.locale = this.$setLocale(this.locale === 'zh' ? 'en' : 'zh')
-      },
       tr(path) {
         return this.$t(path, this.locale)
       },
@@ -145,11 +136,6 @@
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 28rpx;
-}
-
-.toolbar-actions {
-  display: flex;
-  align-items: center;
 }
 
 .toolbar-title {

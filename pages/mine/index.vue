@@ -6,7 +6,6 @@
           <view class="toolbar-title">{{ tr('mine.title') }}</view>
           <view class="toolbar-subtitle">{{ tr('mine.subtitle') }}</view>
         </view>
-        <button class="theme-switch" @click="toggleLocale">{{ localeButtonText }}</button>
       </view>
 
       <view class="profile-card theme-card">
@@ -32,7 +31,17 @@
         </view>
         <view class="info-item">
           <text class="label">{{ tr('mine.languageLabel') }}</text>
-          <text class="value">{{ locale === 'zh' ? '中文' : 'English' }}</text>
+          <text class="value">{{ locale === 'zh' ? tr('setting.chinese') : tr('setting.english') }}</text>
+        </view>
+      </view>
+
+      <view class="menu-list theme-card">
+        <view class="menu-item" @click="goSetting">
+          <view>
+            <view class="menu-title">{{ tr('mine.settingEntry') }}</view>
+            <view class="menu-desc">{{ tr('mine.settingHint') }}</view>
+          </view>
+          <view class="menu-arrow">></view>
         </view>
       </view>
 
@@ -64,9 +73,6 @@
       themeClass() {
         return this.theme === 'dark' ? 'theme-dark' : 'theme-light'
       },
-      localeButtonText() {
-        return this.locale === 'zh' ? 'EN' : '中文'
-      },
       displayName() {
         return this.userInfo.nickname || this.userInfo.username || 'upush'
       },
@@ -86,9 +92,6 @@
         this.userInfo = uni.getStorageSync('userInfo') || {}
         this.applyNavTheme()
       },
-      toggleLocale() {
-        this.locale = this.$setLocale(this.locale === 'zh' ? 'en' : 'zh')
-      },
       tr(path) {
         return this.$t(path, this.locale)
       },
@@ -97,6 +100,11 @@
         uni.setNavigationBarColor({
           frontColor: isDark ? '#ffffff' : '#000000',
           backgroundColor: isDark ? '#0f1d2c' : '#f5f9ff'
+        })
+      },
+      goSetting() {
+        uni.navigateTo({
+          url: '/pages/setting/index'
         })
       },
       goLogin() {
@@ -177,12 +185,15 @@
   color: var(--text-secondary);
 }
 
-.info-list {
+.info-list,
+.menu-list {
   border-radius: 28rpx;
   padding: 8rpx 24rpx;
+  margin-bottom: 24rpx;
 }
 
-.info-item {
+.info-item,
+.menu-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -192,7 +203,9 @@
   &:last-child {
     border-bottom: none;
   }
+}
 
+.info-item {
   .label {
     color: var(--text-secondary);
   }
@@ -202,6 +215,21 @@
     text-align: right;
     color: var(--text-primary);
   }
+}
+
+.menu-title {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.menu-desc {
+  margin-top: 8rpx;
+  color: var(--text-secondary);
+}
+
+.menu-arrow {
+  color: var(--text-muted);
+  font-size: 32rpx;
 }
 
 .action-list {
