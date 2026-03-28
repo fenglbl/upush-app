@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     navBackgroundColor() {
-      return this.theme === 'dark' ? '#0f1d2c' : '#f5f9ff'
+      return this.theme === 'dark' ? '#0f1d2c' : '#ffffff'
     },
     navTitleColor() {
       return this.theme === 'dark' ? '#ffffff' : '#17324d'
