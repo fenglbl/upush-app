@@ -1,15 +1,7 @@
 <template>
 	<view class="theme-page theme-panel" :class="themeClass">
     <view class="content">
-      <uv-navbar
-        :title="tr('login.navTitle')"
-        :autoBack="true"
-        :placeholder="true"
-        :safeAreaInsetTop="true"
-        :bgColor="navBackgroundColor"
-        :titleStyle="{ color: navTitleColor }"
-        :leftIconColor="navTitleColor"
-      ></uv-navbar>
+      <app-navbar :title="tr('login.navTitle')" :theme="theme"></app-navbar>
       <view class="hero theme-card">
         <view class="logo-box">
           <image class="logo" src="/static/upush_logo.png"></image>
@@ -58,12 +50,6 @@
 		computed: {
       themeClass() {
         return this.theme === 'dark' ? 'theme-dark' : 'theme-light'
-      },
-      navBackgroundColor() {
-        return this.theme === 'dark' ? '#0f1d2c' : '#f5f9ff'
-      },
-      navTitleColor() {
-        return this.theme === 'dark' ? '#ffffff' : '#17324d'
       }
 		},
 		methods: {

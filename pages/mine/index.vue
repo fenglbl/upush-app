@@ -17,19 +17,21 @@
       </view>
 
       <view class="section-title">{{ tr('mine.accountInfo') }}</view>
-      <uv-cell-group customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx;">
-        <uv-cell :title="tr('mine.nickname')" :value="userInfo.nickname || '--'" :border="true"></uv-cell>
-        <uv-cell :title="tr('mine.username')" :value="userInfo.username || '--'" :border="true"></uv-cell>
-        <uv-cell :title="tr('mine.userId')" :value="userInfo.id || '--'" :border="true"></uv-cell>
-        <uv-cell :title="tr('mine.languageLabel')" :value="locale === 'zh' ? tr('setting.chinese') : tr('setting.english')" :border="false"></uv-cell>
+      <uv-cell-group class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); border: 1rpx solid var(--border-color); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
+        <uv-cell :title="tr('mine.nickname')" :value="userInfo.nickname || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle"></uv-cell>
+        <uv-cell :title="tr('mine.username')" :value="userInfo.username || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle"></uv-cell>
+        <uv-cell :title="tr('mine.userId')" :value="userInfo.id || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle"></uv-cell>
+        <uv-cell :title="tr('mine.languageLabel')" :value="locale === 'zh' ? tr('setting.chinese') : tr('setting.english')" :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle"></uv-cell>
       </uv-cell-group>
 
-      <uv-cell-group customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 28rpx;">
+      <uv-cell-group class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 28rpx; background: var(--surface-bg); border: 1rpx solid var(--border-color); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
         <uv-cell
           :title="tr('mine.settingEntry')"
           :label="tr('mine.settingHint')"
           isLink
           :border="false"
+          :cellStyle="cellStyle"
+          :titleStyle="cellTitleStyle"
           @click="goSetting"
         ></uv-cell>
       </uv-cell-group>
@@ -86,6 +88,18 @@
       avatarText() {
         const source = this.userInfo.nickname || this.userInfo.username || 'U'
         return source.slice(0, 1).toUpperCase()
+      },
+      cellStyle() {
+        return {
+          background: 'var(--surface-bg)',
+          color: 'var(--text-primary)'
+        }
+      },
+      cellTitleStyle() {
+        return {
+          color: 'var(--text-primary)',
+          fontWeight: '600'
+        }
       }
     },
     methods: {

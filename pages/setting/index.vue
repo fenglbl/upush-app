@@ -1,23 +1,15 @@
 <template>
   <view class="theme-page theme-panel" :class="themeClass">
     <view class="setting-shell">
-      <uv-navbar
-        :title="tr('setting.title')"
-        :autoBack="true"
-        :placeholder="true"
-        :safeAreaInsetTop="true"
-        :bgColor="navBackgroundColor"
-        :titleStyle="{ color: navTitleColor }"
-        :leftIconColor="navTitleColor"
-      ></uv-navbar>
+      <app-navbar :title="tr('setting.title')" :theme="theme"></app-navbar>
 
       <view class="toolbar">
         <view class="toolbar-subtitle">{{ tr('setting.subtitle') }}</view>
       </view>
 
       <view class="section-title">{{ tr('setting.preferenceGroup') }}</view>
-      <uv-cell-group customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx;">
-        <uv-cell :title="tr('setting.themeTitle')" :label="tr('setting.themeDesc')" :border="false">
+      <uv-cell-group class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg);  box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
+        <uv-cell :title="tr('setting.themeTitle')" :label="tr('setting.themeDesc')" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle">
           <template #value>
             <view class="cell-actions">
               <uv-button
@@ -35,7 +27,7 @@
             </view>
           </template>
         </uv-cell>
-        <uv-cell :title="tr('setting.languageTitle')" :label="tr('setting.languageDesc')" :border="false">
+        <uv-cell :title="tr('setting.languageTitle')" :label="tr('setting.languageDesc')" :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle">
           <template #value>
             <view class="cell-actions">
               <uv-button
@@ -76,11 +68,17 @@
       themeClass() {
         return this.theme === 'dark' ? 'theme-dark' : 'theme-light'
       },
-      navBackgroundColor() {
-        return this.theme === 'dark' ? '#0f1d2c' : '#f5f9ff'
+      cellStyle() {
+        return {
+          background: 'var(--surface-bg)',
+          color: 'var(--text-primary)'
+        }
       },
-      navTitleColor() {
-        return this.theme === 'dark' ? '#ffffff' : '#17324d'
+      cellTitleStyle() {
+        return {
+          color: 'var(--text-primary)',
+          fontWeight: '600'
+        }
       }
     },
     methods: {
