@@ -15,27 +15,45 @@
         <view class="toolbar-subtitle">{{ tr('setting.subtitle') }}</view>
       </view>
 
-      <view class="setting-card theme-card">
-        <view class="setting-head">
-          <view class="setting-title">{{ tr('setting.themeTitle') }}</view>
-          <view class="setting-desc">{{ tr('setting.themeDesc') }}</view>
-        </view>
-        <view class="option-group">
-          <button class="option-button" :class="{ active: theme === 'light' }" @click="setTheme('light')">{{ tr('setting.light') }}</button>
-          <button class="option-button" :class="{ active: theme === 'dark' }" @click="setTheme('dark')">{{ tr('setting.dark') }}</button>
-        </view>
-      </view>
-
-      <view class="setting-card theme-card">
-        <view class="setting-head">
-          <view class="setting-title">{{ tr('setting.languageTitle') }}</view>
-          <view class="setting-desc">{{ tr('setting.languageDesc') }}</view>
-        </view>
-        <view class="option-group">
-          <button class="option-button" :class="{ active: locale === 'zh' }" @click="setAppLocale('zh')">{{ tr('setting.chinese') }}</button>
-          <button class="option-button" :class="{ active: locale === 'en' }" @click="setAppLocale('en')">{{ tr('setting.english') }}</button>
-        </view>
-      </view>
+      <view class="section-title">{{ tr('setting.preferenceGroup') }}</view>
+      <uv-cell-group customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx;">
+        <uv-cell :title="tr('setting.themeTitle')" :label="tr('setting.themeDesc')" :border="false">
+          <template #value>
+            <view class="cell-actions">
+              <uv-button
+                size="mini"
+                shape="circle"
+                :type="theme === 'light' ? 'primary' : 'info'"
+                @click.stop="setTheme('light')"
+              >{{ tr('setting.light') }}</uv-button>
+              <uv-button
+                size="mini"
+                shape="circle"
+                :type="theme === 'dark' ? 'primary' : 'info'"
+                @click.stop="setTheme('dark')"
+              >{{ tr('setting.dark') }}</uv-button>
+            </view>
+          </template>
+        </uv-cell>
+        <uv-cell :title="tr('setting.languageTitle')" :label="tr('setting.languageDesc')" :border="false">
+          <template #value>
+            <view class="cell-actions">
+              <uv-button
+                size="mini"
+                shape="circle"
+                :type="locale === 'zh' ? 'primary' : 'info'"
+                @click.stop="setAppLocale('zh')"
+              >{{ tr('setting.chinese') }}</uv-button>
+              <uv-button
+                size="mini"
+                shape="circle"
+                :type="locale === 'en' ? 'primary' : 'info'"
+                @click.stop="setAppLocale('en')"
+              >{{ tr('setting.english') }}</uv-button>
+            </view>
+          </template>
+        </uv-cell>
+      </uv-cell-group>
     </view>
   </view>
 </template>
@@ -104,7 +122,7 @@
 }
 
 .toolbar {
-  margin-bottom: 28rpx;
+  margin-bottom: 24rpx;
 }
 
 .toolbar-subtitle {
@@ -112,45 +130,15 @@
   color: var(--text-secondary);
 }
 
-.setting-card {
-  border-radius: 28rpx;
-  padding: 28rpx;
-  margin-bottom: 24rpx;
-}
-
-.setting-head {
-  margin-bottom: 24rpx;
-}
-
-.setting-title {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.setting-desc {
-  margin-top: 10rpx;
+.section-title {
+  margin: 8rpx 0 18rpx;
+  font-size: 26rpx;
   color: var(--text-secondary);
 }
 
-.option-group {
+.cell-actions {
   display: flex;
-  gap: 20rpx;
-}
-
-.option-button {
-  flex: 1;
-  height: 88rpx;
-  line-height: 88rpx;
-  border-radius: 24rpx;
-  background: var(--surface-strong);
-  color: var(--text-primary);
-  border: 1rpx solid var(--border-color);
-
-  &.active {
-    background: linear-gradient(135deg, var(--accent-color) 0%, #3fb2ff 100%);
-    color: var(--button-text);
-    border-color: transparent;
-  }
+  align-items: center;
+  gap: 12rpx;
 }
 </style>

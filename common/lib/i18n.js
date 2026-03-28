@@ -60,6 +60,7 @@ const messages = {
       username: '账号',
       userId: '用户 ID',
       languageLabel: '当前语言',
+      accountInfo: '账号信息',
       settingEntry: '设置',
       settingHint: '主题、语言与个性化偏好',
       loginHint: '登录后可查看完整账号信息',
@@ -68,6 +69,7 @@ const messages = {
     setting: {
       title: '设置',
       subtitle: '在这里统一管理界面偏好',
+      preferenceGroup: '偏好设置',
       themeTitle: '外观模式',
       themeDesc: '切换日间模式或夜间模式',
       languageTitle: '界面语言',
@@ -139,6 +141,7 @@ const messages = {
       username: 'Username',
       userId: 'User ID',
       languageLabel: 'Current Language',
+      accountInfo: 'Account Info',
       settingEntry: 'Settings',
       settingHint: 'Theme, language and personal preferences',
       loginHint: 'Sign in to view full account information',
@@ -147,6 +150,7 @@ const messages = {
     setting: {
       title: 'Settings',
       subtitle: 'Manage your interface preferences here',
+      preferenceGroup: 'Preferences',
       themeTitle: 'Appearance',
       themeDesc: 'Switch between light mode and dark mode',
       languageTitle: 'Interface Language',

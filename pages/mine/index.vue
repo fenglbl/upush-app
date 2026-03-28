@@ -16,38 +16,42 @@
         </view>
       </view>
 
-      <view class="info-list theme-card">
-        <view class="info-item">
-          <text class="label">{{ tr('mine.nickname') }}</text>
-          <text class="value">{{ userInfo.nickname || '--' }}</text>
-        </view>
-        <view class="info-item">
-          <text class="label">{{ tr('mine.username') }}</text>
-          <text class="value">{{ userInfo.username || '--' }}</text>
-        </view>
-        <view class="info-item">
-          <text class="label">{{ tr('mine.userId') }}</text>
-          <text class="value">{{ userInfo.id || '--' }}</text>
-        </view>
-        <view class="info-item">
-          <text class="label">{{ tr('mine.languageLabel') }}</text>
-          <text class="value">{{ locale === 'zh' ? tr('setting.chinese') : tr('setting.english') }}</text>
-        </view>
-      </view>
+      <view class="section-title">{{ tr('mine.accountInfo') }}</view>
+      <uv-cell-group customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx;">
+        <uv-cell :title="tr('mine.nickname')" :value="userInfo.nickname || '--'" :border="true"></uv-cell>
+        <uv-cell :title="tr('mine.username')" :value="userInfo.username || '--'" :border="true"></uv-cell>
+        <uv-cell :title="tr('mine.userId')" :value="userInfo.id || '--'" :border="true"></uv-cell>
+        <uv-cell :title="tr('mine.languageLabel')" :value="locale === 'zh' ? tr('setting.chinese') : tr('setting.english')" :border="false"></uv-cell>
+      </uv-cell-group>
 
-      <view class="menu-list theme-card">
-        <view class="menu-item" @click="goSetting">
-          <view>
-            <view class="menu-title">{{ tr('mine.settingEntry') }}</view>
-            <view class="menu-desc">{{ tr('mine.settingHint') }}</view>
-          </view>
-          <view class="menu-arrow">></view>
-        </view>
-      </view>
+      <uv-cell-group customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 28rpx;">
+        <uv-cell
+          :title="tr('mine.settingEntry')"
+          :label="tr('mine.settingHint')"
+          isLink
+          :border="false"
+          @click="goSetting"
+        ></uv-cell>
+      </uv-cell-group>
 
       <view class="action-list">
-        <button v-if="!token" class="action-button theme-primary-button" @click="goLogin">{{ tr('common.goLogin') }}</button>
-        <button v-else class="action-button logout-button" @click="logout">{{ tr('common.logout') }}</button>
+        <uv-button
+          v-if="!token"
+          type="primary"
+          shape="circle"
+          size="large"
+          customStyle="height: 92rpx;"
+          @click="goLogin"
+        >{{ tr('common.goLogin') }}</uv-button>
+        <uv-button
+          v-else
+          type="error"
+          shape="circle"
+          size="large"
+          plain
+          customStyle="height: 92rpx;"
+          @click="logout"
+        >{{ tr('common.logout') }}</uv-button>
       </view>
     </view>
   </view>
@@ -187,69 +191,13 @@
   color: var(--text-secondary);
 }
 
-.info-list,
-.menu-list {
-  border-radius: 28rpx;
-  padding: 8rpx 24rpx;
-  margin-bottom: 24rpx;
-}
-
-.info-item,
-.menu-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 92rpx;
-  border-bottom: 1rpx solid var(--border-color);
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.info-item {
-  .label {
-    color: var(--text-secondary);
-  }
-
-  .value {
-    max-width: 60%;
-    text-align: right;
-    color: var(--text-primary);
-  }
-}
-
-.menu-title {
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.menu-desc {
-  margin-top: 8rpx;
+.section-title {
+  margin: 8rpx 0 18rpx;
+  font-size: 26rpx;
   color: var(--text-secondary);
 }
 
-.menu-arrow {
-  color: var(--text-muted);
-  font-size: 32rpx;
-}
-
 .action-list {
-  margin-top: 36rpx;
-}
-
-.action-button {
-  width: 100%;
-  height: 92rpx;
-  line-height: 92rpx;
-  border-radius: 24rpx;
-  font-size: 30rpx;
-  font-weight: 600;
-}
-
-.logout-button {
-  background: rgba(255, 107, 107, 0.12);
-  color: #e45151;
-  border: 1rpx solid rgba(228, 81, 81, 0.18);
+  margin-top: 28rpx;
 }
 </style>
