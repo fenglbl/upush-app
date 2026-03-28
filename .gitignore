@@ -24,3 +24,7 @@ upushServer/unipush/getui_token_cache.json
 # OS/editor files
 .DS_Store
 Thumbs.db
+
+# temporary commit message files
+.git-msg*
+.git-commit-message.txt
