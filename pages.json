@@ -32,12 +32,6 @@
       "style": {
         "navigationBarTitleText": "upsh"
       }
-    },
-    {
-      "path": "pages/vant-demo/index",
-      "style": {
-        "navigationBarTitleText": "Vant Demo"
-      }
     }
   ],
   "globalStyle": {
