@@ -186,3 +186,18 @@ export function t(path, locale) {
   const currentLocale = locale || getLocale()
   return resolveMessage(currentLocale, path) || path
 }
+
+export function applyTabBarI18n(locale) {
+  const currentLocale = locale || getLocale()
+  const items = [
+    { index: 0, text: t('common.tabHome', currentLocale) },
+    { index: 1, text: t('common.tabMine', currentLocale) }
+  ]
+
+  items.forEach((item) => {
+    uni.setTabBarItem({
+      index: item.index,
+      text: item.text
+    })
+  })
+}

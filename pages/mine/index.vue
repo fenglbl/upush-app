@@ -88,6 +88,7 @@
       syncState() {
         this.theme = uni.getStorageSync('appTheme') || 'light'
         this.locale = this.$getLocale()
+        this.$applyTabBarI18n(this.locale)
         this.token = uni.getStorageSync('token') || ''
         this.userInfo = uni.getStorageSync('userInfo') || {}
         this.applyNavTheme()

@@ -47,6 +47,7 @@
     onLoad() {
       this.theme = uni.getStorageSync('appTheme') || 'light'
       this.locale = this.$getLocale()
+      this.$applyTabBarI18n(this.locale)
       this.applyNavTheme()
       let userInfo = uni.getStorageSync('userInfo') || {}
       this.uid = userInfo.id || ''
@@ -54,6 +55,7 @@
     onShow() {
       this.theme = uni.getStorageSync('appTheme') || 'light'
       this.locale = this.$getLocale()
+      this.$applyTabBarI18n(this.locale)
       this.applyNavTheme()
       this.token = uni.getStorageSync('token')
       if (this.token) {

@@ -56,6 +56,7 @@
       syncState() {
         this.theme = uni.getStorageSync('appTheme') || 'light'
         this.locale = this.$getLocale()
+        this.$applyTabBarI18n(this.locale)
         this.applyNavTheme()
       },
       tr(path) {
@@ -68,6 +69,7 @@
       },
       setAppLocale(locale) {
         this.locale = this.$setLocale(locale)
+        this.$applyTabBarI18n(this.locale)
       },
       applyNavTheme() {
         const isDark = this.theme === 'dark'
