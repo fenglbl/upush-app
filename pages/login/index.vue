@@ -1,29 +1,28 @@
 <template>
 	<view class="theme-page theme-panel" :class="themeClass">
     <view class="content">
-      <!-- <view class="topbar">
-        <view class="topbar-title">upush</view>
-        <button class="theme-switch" @click="toggleTheme">{{ themeButtonText }}</button>
-      </view> -->
+      <view class="toolbar-actions">
+        <button class="theme-switch" @click="toggleLocale">{{ localeButtonText }}</button>
+      </view>
       <view class="hero theme-card">
         <view class="logo-box">
           <image class="logo" src="/static/upush_logo.png"></image>
           <view class="hero-copy">
-            <text class="eyebrow">消息直达</text>
-            <text class="logo-text">欢迎登录</text>
-            <text class="sub-text">统一管理设备接收、推送消息与消息列表。</text>
+            <text class="eyebrow">{{ $t('login.eyebrow') }}</text>
+            <text class="logo-text">{{ $t('login.title') }}</text>
+            <text class="sub-text">{{ $t('login.subtitle') }}</text>
           </view>
         </view>
         <view class="form-box">
           <view class="input-box theme-card">
-            <input class="input" type="text" placeholder="输入账号" placeholder-class="placeholder" v-model="username" />
+            <input class="input" type="text" :placeholder="$t('login.usernamePlaceholder')" placeholder-class="placeholder" v-model="username" />
           </view>
           <view class="input-box theme-card">
-            <input class="input" type="text" placeholder="输入密码" placeholder-class="placeholder" v-model="password" password />
+            <input class="input" type="text" :placeholder="$t('login.passwordPlaceholder')" placeholder-class="placeholder" v-model="password" password />
           </view>
         </view>
-        <view class="reg">还没有账号？<text class="link" @click="toRegister">注册</text></view>
-        <button class="button theme-primary-button" @click="login">登录</button>
+        <view class="reg">{{ $t('login.noAccount') }}<text class="link" @click="toRegister">{{ $t('login.register') }}</text></view>
+        <button class="button theme-primary-button" @click="login">{{ $t('login.submit') }}</button>
       </view>
     </view>
 	</view>
@@ -33,39 +32,34 @@
 	export default {
 		data() {
 			return {
-        username: "",
-        password: "",
-				cid: "",
-				theme: 'light'
+        username: '',
+        password: '',
+				cid: '',
+				theme: 'light',
+				locale: 'zh'
 			}
 		},
 		onLoad() {
       this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.locale = this.$getLocale()
       this.applyNavTheme()
-      // let token = uni.getStorageSync('token')
-      // if(token){
-      //   uni.reLaunch({
-      //     url:'/pages/home/index'
-      //   })
-      // }
 		},
 		onShow() {
       this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.locale = this.$getLocale()
       this.applyNavTheme()
 		},
 		computed: {
       themeClass() {
         return this.theme === 'dark' ? 'theme-dark' : 'theme-light'
       },
-      themeButtonText() {
-        return this.theme === 'dark' ? '日间模式' : '夜间模式'
+      localeButtonText() {
+        return this.locale === 'zh' ? 'EN' : '中文'
       }
 		},
 		methods: {
-      toggleTheme() {
-        this.theme = this.theme === 'dark' ? 'light' : 'dark'
-        uni.setStorageSync('appTheme', this.theme)
-        this.applyNavTheme()
+      toggleLocale() {
+        this.locale = this.$setLocale(this.locale === 'zh' ? 'en' : 'zh')
       },
       applyNavTheme() {
         const isDark = this.theme === 'dark'
@@ -76,11 +70,11 @@
       },
       async login() {
         if (!this.username) {
-          uni.showToast({ icon: 'none', title: '请输入账号' })
+          uni.showToast({ icon: 'none', title: this.$t('login.usernameRequired') })
           return
         }
         if (!this.password) {
-          uni.showToast({ icon: 'none', title: '请输入密码' })
+          uni.showToast({ icon: 'none', title: this.$t('login.passwordRequired') })
           return
         }
         const cid = uni.getStorageSync('cid')
@@ -114,21 +108,12 @@
 		flex-direction: column;
 		padding: 36rpx 28rpx 48rpx;
 		min-height: 100vh;
-    .topbar {
+    .toolbar-actions {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 52rpx;
-      padding-top: 16rpx;
-      .topbar-title {
-        font-size: 40rpx;
-        font-weight: 600;
-        letter-spacing: 4rpx;
-        color: var(--text-primary);
-      }
+      justify-content: flex-end;
     }
     .hero {
-      margin-top: 100rpx;
+      margin-top: 72rpx;
       padding: 40rpx 36rpx 48rpx;
       border-radius: 36rpx;
     }

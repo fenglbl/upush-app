@@ -1,28 +1,31 @@
 <template>
   <view class="theme-page theme-panel" :class="themeClass">
     <view class="content">
+      <view class="toolbar-actions">
+        <button class="theme-switch" @click="toggleLocale">{{ localeButtonText }}</button>
+      </view>
       <view class="hero theme-card">
         <view class="logo-box">
           <image class="logo" src="/static/upush_logo.png"></image>
           <view class="hero-copy">
-            <text class="eyebrow">创建账号</text>
-            <text class="logo-text">欢迎注册</text>
-            <text class="sub-text">填写基础信息后即可创建 upush 账号并返回登录。</text>
+            <text class="eyebrow">{{ $t('register.eyebrow') }}</text>
+            <text class="logo-text">{{ $t('register.title') }}</text>
+            <text class="sub-text">{{ $t('register.subtitle') }}</text>
           </view>
         </view>
         <view class="form-box">
           <view class="input-box theme-card">
-            <input class="input" type="text" placeholder="输入账号" placeholder-class="placeholder" v-model="username" />
+            <input class="input" type="text" :placeholder="$t('register.usernamePlaceholder')" placeholder-class="placeholder" v-model="username" />
           </view>
           <view class="input-box theme-card">
-            <input class="input" type="password" placeholder="输入密码" placeholder-class="placeholder" v-model="password" password />
+            <input class="input" type="password" :placeholder="$t('register.passwordPlaceholder')" placeholder-class="placeholder" v-model="password" password />
           </view>
           <view class="input-box theme-card">
-            <input class="input" type="password" placeholder="确认密码" placeholder-class="placeholder" v-model="confirmPassword" password />
+            <input class="input" type="password" :placeholder="$t('register.confirmPasswordPlaceholder')" placeholder-class="placeholder" v-model="confirmPassword" password />
           </view>
         </view>
-        <view class="reg">已有账号？<text class="link" @click="toLogin">去登录</text></view>
-        <button class="button theme-primary-button" @click="register">注册账号</button>
+        <view class="reg">{{ $t('register.hasAccount') }}<text class="link" @click="toLogin">{{ $t('register.goLogin') }}</text></view>
+        <button class="button theme-primary-button" @click="register">{{ $t('register.submit') }}</button>
       </view>
     </view>
   </view>
@@ -35,23 +38,32 @@
         username: '',
         password: '',
         confirmPassword: '',
-        theme: 'light'
+        theme: 'light',
+        locale: 'zh'
       }
     },
     onLoad() {
       this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.locale = this.$getLocale()
       this.applyNavTheme()
     },
     onShow() {
       this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.locale = this.$getLocale()
       this.applyNavTheme()
     },
     computed: {
       themeClass() {
         return this.theme === 'dark' ? 'theme-dark' : 'theme-light'
+      },
+      localeButtonText() {
+        return this.locale === 'zh' ? 'EN' : '中文'
       }
     },
     methods: {
+      toggleLocale() {
+        this.locale = this.$setLocale(this.locale === 'zh' ? 'en' : 'zh')
+      },
       applyNavTheme() {
         const isDark = this.theme === 'dark'
         uni.setNavigationBarColor({
@@ -61,23 +73,23 @@
       },
       validateForm() {
         if (!this.username) {
-          uni.showToast({ icon: 'none', title: '请输入账号' })
+          uni.showToast({ icon: 'none', title: this.$t('register.usernameRequired') })
           return false
         }
         if (!this.password) {
-          uni.showToast({ icon: 'none', title: '请输入密码' })
+          uni.showToast({ icon: 'none', title: this.$t('register.passwordRequired') })
           return false
         }
         if (this.password.length < 6) {
-          uni.showToast({ icon: 'none', title: '密码至少 6 位' })
+          uni.showToast({ icon: 'none', title: this.$t('register.passwordMin') })
           return false
         }
         if (!this.confirmPassword) {
-          uni.showToast({ icon: 'none', title: '请确认密码' })
+          uni.showToast({ icon: 'none', title: this.$t('register.confirmPasswordRequired') })
           return false
         }
         if (this.password !== this.confirmPassword) {
-          uni.showToast({ icon: 'none', title: '两次密码不一致' })
+          uni.showToast({ icon: 'none', title: this.$t('register.passwordMismatch') })
           return false
         }
         return true
@@ -91,7 +103,7 @@
           password: this.password
         })
         if (res.code === 200) {
-          this.$toast(res.msg || '注册成功', () => {
+          this.$toast(res.msg || this.$t('register.success'), () => {
             uni.navigateBack({
               delta: 1
             })
@@ -114,8 +126,13 @@
   padding: 36rpx 28rpx 48rpx;
   min-height: 100vh;
 
+  .toolbar-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
   .hero {
-    margin-top: 100rpx;
+    margin-top: 72rpx;
     padding: 40rpx 36rpx 48rpx;
     border-radius: 36rpx;
   }

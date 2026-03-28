@@ -3,14 +3,16 @@
     <view class="home-shell">
       <view class="toolbar">
         <view>
-          <view class="toolbar-title">消息中心</view>
-          <view class="toolbar-subtitle">实时查看设备接收到的推送消息</view>
+          <view class="toolbar-title">{{ $t('home.title') }}</view>
+          <view class="toolbar-subtitle">{{ $t('home.subtitle') }}</view>
         </view>
-        <button class="theme-switch" @click="toggleTheme">{{ themeButtonText }}</button>
+        <view class="toolbar-actions">
+          <button class="theme-switch" @click="toggleLocale">{{ localeButtonText }}</button>
+        </view>
       </view>
 
       <view class="device-id theme-card">
-        <view class="label">当前用户 ID</view>
+        <view class="label">{{ $t('home.currentUserId') }}</view>
         <view class="cid" @click="copy">{{ uid }}</view>
       </view>
 
@@ -20,13 +22,13 @@
           <view class="content" v-html="item.content"></view>
           <view class="time">{{ formatTime(item.create_time) }}</view>
         </view>
-        <view class="nomore" v-if="page >= total">已加载全部数据</view>
+        <view class="nomore" v-if="page >= total">{{ $t('common.loadingAll') }}</view>
       </view>
 
       <view v-else class="empty-state theme-card">
-        <view class="empty-title">当前未登录</view>
-        <view class="empty-desc">登录后可查看推送消息记录，并实时接收新的消息提醒。</view>
-        <button class="login-button theme-primary-button" @click="navTo">去登录</button>
+        <view class="empty-title">{{ $t('home.emptyTitle') }}</view>
+        <view class="empty-desc">{{ $t('home.emptyDesc') }}</view>
+        <button class="login-button theme-primary-button" @click="navTo">{{ $t('common.goLogin') }}</button>
       </view>
     </view>
   </view>
@@ -37,21 +39,24 @@
     data() {
       return {
         list: [],
-        token: "",
-        uid: "",
+        token: '',
+        uid: '',
         page: 1,
         total: 1,
-        theme: 'light'
+        theme: 'light',
+        locale: 'zh'
       }
     },
     onLoad() {
       this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.locale = this.$getLocale()
       this.applyNavTheme()
       let userInfo = uni.getStorageSync('userInfo') || {}
       this.uid = userInfo.id || ''
     },
     onShow() {
       this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.locale = this.$getLocale()
       this.applyNavTheme()
       this.token = uni.getStorageSync('token')
       if (this.token) {
@@ -82,15 +87,13 @@
       themeClass() {
         return this.theme === 'dark' ? 'theme-dark' : 'theme-light'
       },
-      themeButtonText() {
-        return this.theme === 'dark' ? '日间模式' : '夜间模式'
+      localeButtonText() {
+        return this.locale === 'zh' ? 'EN' : '中文'
       }
     },
     methods: {
-      toggleTheme() {
-        this.theme = this.theme === 'dark' ? 'light' : 'dark'
-        uni.setStorageSync('appTheme', this.theme)
-        this.applyNavTheme()
+      toggleLocale() {
+        this.locale = this.$setLocale(this.locale === 'zh' ? 'en' : 'zh')
       },
       applyNavTheme() {
         const isDark = this.theme === 'dark'
@@ -110,9 +113,6 @@
           this.total = res.data.total
           uni.stopPullDownRefresh()
         })
-      },
-      push() {
-        this.$apis.user.push({ id: '687ba27b7afc5034100a83f0', title: '测试', content: `fa测试测试测试测试fa<br><span style="color:red;">fefe</span>` })
       },
       copy() {
         uni.setClipboardData({
@@ -142,6 +142,11 @@
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 28rpx;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
 }
 
 .toolbar-title {
@@ -232,7 +237,7 @@
     color: var(--text-muted);
 
     &::after {
-      content: "";
+      content: '';
       display: inline-block;
       width: 80rpx;
       height: 2rpx;
@@ -241,7 +246,7 @@
     }
 
     &::before {
-      content: "";
+      content: '';
       display: inline-block;
       width: 80rpx;
       height: 2rpx;

@@ -1,3 +1,5 @@
+import { t } from '@/common/lib/i18n.js'
+
 export function toast(title, fun) {
   uni.showToast({
     duration: 1500,
@@ -43,4 +45,12 @@ export function formatTime(value) {
   }
 
   return new Date(value).Format('yyyy-MM-dd HH:mm:ss')
+}
+
+export function showNetworkError(locale) {
+  uni.showToast({
+    icon: 'none',
+    mask: true,
+    title: t('common.networkError', locale)
+  })
 }

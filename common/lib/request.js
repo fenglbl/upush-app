@@ -1,4 +1,6 @@
 import _uniCloud from "@/common/lib/cloudfunctions.js"
+import { getLocale, t } from '@/common/lib/i18n.js'
+import { showNetworkError } from '@/common/lib/app.js'
 console.log(_uniCloud);
 
 export default function(name,data){
@@ -12,11 +14,7 @@ export default function(name,data){
       resolve(res)
     }).catch(err=>{
       console.log(err);
-      uni.showToast({
-        icon:"none",
-        mask:true,
-        title:"网络异常"
-      })
+      showNetworkError(getLocale())
     })
   });
 }
