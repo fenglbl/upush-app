@@ -41,24 +41,14 @@
         ></uv-cell>
       </uv-cell-group>
 
-      <view class="action-list">
+      <view class="action-list" v-if="!token">
         <uv-button
-          v-if="!token"
           type="primary"
           shape="circle"
           size="large"
           customStyle="height: 92rpx;"
           @click="goLogin"
         >{{ tr('common.goLogin') }}</uv-button>
-        <uv-button
-          v-else
-          type="error"
-          shape="circle"
-          size="large"
-          plain
-          customStyle="height: 92rpx;"
-          @click="logout"
-        >{{ tr('common.logout') }}</uv-button>
       </view>
     </view>
   </view>
@@ -155,12 +145,6 @@
           data: this.userInfo.id
         })
       },
-      logout() {
-        uni.removeStorageSync('token')
-        uni.removeStorageSync('userInfo')
-        this.token = ''
-        this.userInfo = {}
-        this.$toast(this.tr('mine.logoutSuccess'))
       }
     }
   }

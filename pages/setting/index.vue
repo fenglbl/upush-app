@@ -60,6 +60,16 @@
           @click="goLanguageSetting"
         ></uv-cell>
       </uv-cell-group>
+
+      <view class="section-title">{{ tr('setting.aboutGroup') }}</view>
+      <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
+        <uv-cell :title="tr('setting.aboutUpush')" :label="tr('setting.aboutUpushDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('setting.checkUpdate')" :label="tr('setting.checkUpdateDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('setting.userAgreement')" :label="tr('setting.userAgreementDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('setting.contactUs')" :label="tr('setting.contactUsDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('setting.feedback')" :label="tr('setting.feedbackDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('setting.logoutEntry')" :label="tr('setting.logoutEntryDesc')" isLink :border="false" :cellStyle="cellStyle" :titleStyle="logoutTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="logout"></uv-cell>
+      </uv-cell-group>
     </view>
   </view>
 </template>
@@ -103,6 +113,12 @@
         return {
           color: 'var(--text-secondary)'
         }
+      },
+      logoutTitleStyle() {
+        return {
+          color: '#e45151',
+          fontWeight: '600'
+        }
       }
     },
     methods: {
@@ -134,6 +150,15 @@
       goLanguageSetting() {
         uni.navigateTo({
           url: '/pages/setting/language'
+        })
+      },
+      logout() {
+        uni.removeStorageSync('token')
+        uni.removeStorageSync('userInfo')
+        this.$toast(this.tr('setting.logoutSuccess'), () => {
+          uni.switchTab({
+            url: '/pages/mine/index'
+          })
         })
       },
       applyNavTheme() {
