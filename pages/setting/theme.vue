@@ -95,9 +95,12 @@
       }
     },
     methods: {
-      syncState() {
+      getSystemTheme() {
         const systemInfo = uni.getSystemInfoSync()
-        const systemTheme = systemInfo.theme === 'dark' ? 'dark' : 'light'
+        return systemInfo.hostTheme === 'dark' || systemInfo.theme === 'dark' ? 'dark' : 'light'
+      },
+      syncState() {
+        const systemTheme = this.getSystemTheme()
         this.themeMode = uni.getStorageSync('appThemeMode') || uni.getStorageSync('appTheme') || 'system'
         this.theme = this.themeMode === 'system' ? systemTheme : this.themeMode
         this.locale = this.$getLocale()
@@ -109,8 +112,7 @@
         return this.$t(path, this.locale)
       },
       setThemeMode(mode) {
-        const systemInfo = uni.getSystemInfoSync()
-        const systemTheme = systemInfo.theme === 'dark' ? 'dark' : 'light'
+        const systemTheme = this.getSystemTheme()
         this.themeMode = mode
         this.theme = mode === 'system' ? systemTheme : mode
         uni.setStorageSync('appThemeMode', mode)
