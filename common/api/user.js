@@ -16,6 +16,9 @@ export default {
   checkVersion(data){
     return request('checkVersion',data)
   },
+  getAgreement(data){
+    return request('getAgreement',data)
+  },
   getPushMessage(data){
     return request('getPushMessage',data)
   },
