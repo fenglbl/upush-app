@@ -10,7 +10,7 @@
       <view class="form-card theme-card">
         <view class="form-item">
           <view class="form-label">{{ tr('setting.feedbackType') }}</view>
-          <uv-radio-group v-model="form.type" placement="row" iconPlacement="left">
+          <uv-radio-group v-model="form.type" placement="row" iconPlacement="left" class="feedback-radio-group">
             <uv-radio name="bug" :label="tr('setting.feedbackTypeBug')"></uv-radio>
             <uv-radio name="suggestion" :label="tr('setting.feedbackTypeSuggestion')"></uv-radio>
             <uv-radio name="other" :label="tr('setting.feedbackTypeOther')"></uv-radio>
@@ -138,4 +138,6 @@ export default {
 .form-card { padding: 32rpx; border-radius: 28rpx; }
 .form-item { margin-bottom: 28rpx; }
 .form-label { margin-bottom: 18rpx; color: var(--text-primary); font-weight: 600; }
+.feedback-radio-group :deep(.uv-radio) { margin-right: 28rpx; }
+.feedback-radio-group :deep(.uv-radio:last-child) { margin-right: 0; }
 </style>
