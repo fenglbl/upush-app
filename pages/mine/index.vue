@@ -20,7 +20,7 @@
           <template #value>
             <view class="copy-value" @click.stop="copyUserId">
               <text class="copy-text">{{ userInfo.id || '--' }}</text>
-              <uv-icon name="copy" size="16" color="var(--accent-color)"></uv-icon>
+              <uv-icon name="file-text" size="16" color="var(--accent-color)"></uv-icon>
             </view>
           </template>
         </uv-cell>

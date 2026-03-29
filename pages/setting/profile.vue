@@ -29,6 +29,7 @@
           clearable
           border="surround"
           shape="circle"
+          color="var(--text-primary)"
           :customStyle="inputStyle"
         ></uv-input>
 
@@ -82,7 +83,6 @@ export default {
     inputStyle() {
       return {
         background: 'var(--surface-strong)',
-        color: 'var(--text-primary)',
         borderColor: 'var(--border-color)'
       }
     }
