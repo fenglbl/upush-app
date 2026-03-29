@@ -19,6 +19,9 @@ export default {
   getAgreement(data){
     return request('getAgreement',data)
   },
+  getContactList(data){
+    return request('getContactList',data)
+  },
   getPushMessage(data){
     return request('getPushMessage',data)
   },
