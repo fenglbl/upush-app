@@ -64,12 +64,6 @@
       }
     },
     {
-      "path": "pages/setting/update",
-      "style": {
-        "navigationBarTitleText": "upsh"
-      }
-    },
-    {
       "path": "pages/setting/agreement",
       "style": {
         "navigationBarTitleText": "upsh"

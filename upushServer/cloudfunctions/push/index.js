@@ -12,7 +12,7 @@ exports.main = async (event, context) =>{
   id = new uniCloud.ObjectId(id)
   let devices
   try{
-    devicecs = await deviceDB.find({user_id:id}).toArray()
+    devices = await deviceDB.find({user_id:id}).toArray()
   }catch(err){
     console.log(err);
   }
@@ -25,6 +25,7 @@ exports.main = async (event, context) =>{
       create_time:t,
       title,content,payload
     })
+    if(!payload) return
     payload.mid = insertData.insertedId
     unipush.sendMessage({
       "push_clientid":item.device_id,

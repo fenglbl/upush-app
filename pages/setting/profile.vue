@@ -54,6 +54,7 @@ export default {
   },
   onShow() {
     this.syncState()
+    this.fetchUserInfo()
   },
   computed: {
     themeClass() {
@@ -119,6 +120,22 @@ export default {
         uni.setStorageSync('userInfo', nextUserInfo)
         this.profile = nextUserInfo
         this.$toast(res.msg || this.tr('setting.profileSaveSuccess'))
+      }
+    },
+    async fetchUserInfo() {
+      const token = uni.getStorageSync('token')
+      if (!token) {
+        return
+      }
+      const res = await this.$apis.user.getUserInfo({})
+      if (res.code === 200) {
+        const nextUserInfo = {
+          ...this.profile,
+          ...res.data
+        }
+        uni.setStorageSync('userInfo', nextUserInfo)
+        this.profile = nextUserInfo
+        this.nickname = nextUserInfo.nickname || nextUserInfo.username || ''
       }
     },
     applyNavTheme() {

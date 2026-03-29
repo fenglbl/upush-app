@@ -35,7 +35,7 @@ app.get('/health', async (req, res) => {
 
   res.send({
     code: database.status === 'UP' ? 200 : 503,
-    msg: database.status === 'UP' ? 'ok' : 'db error',
+    msg: database.status === 'UP' ? 'ok' : 'db error',  
     data: {
       status: appStatus,
       timestamp: Date.now(),
