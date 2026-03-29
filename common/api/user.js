@@ -22,6 +22,9 @@ export default {
   getContactList(data){
     return request('getContactList',data)
   },
+  submitFeedback(data){
+    return request('submitFeedback',data)
+  },
   getPushMessage(data){
     return request('getPushMessage',data)
   },
