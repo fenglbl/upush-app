@@ -44,6 +44,7 @@ exports.main = async (event) => {
       id: user._id,
       username: user.username,
       nickname: user.nickname,
+      email: user.email || '',
       token: user.token || token
     }
   }
