@@ -56,6 +56,36 @@
       "style": {
         "navigationBarTitleText": "upsh"
       }
+    },
+    {
+      "path": "pages/setting/about",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
+      "path": "pages/setting/update",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
+      "path": "pages/setting/agreement",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
+      "path": "pages/setting/contact",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
+      "path": "pages/setting/feedback",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
     }
   ],
   "globalStyle": {

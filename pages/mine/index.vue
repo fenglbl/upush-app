@@ -144,7 +144,6 @@
         uni.setClipboardData({
           data: this.userInfo.id
         })
-      },
       }
     }
   }

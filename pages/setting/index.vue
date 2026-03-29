@@ -63,11 +63,11 @@
 
       <view class="section-title">{{ tr('setting.aboutGroup') }}</view>
       <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
-        <uv-cell :title="tr('setting.aboutUpush')" :label="tr('setting.aboutUpushDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
-        <uv-cell :title="tr('setting.checkUpdate')" :label="tr('setting.checkUpdateDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
-        <uv-cell :title="tr('setting.userAgreement')" :label="tr('setting.userAgreementDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
-        <uv-cell :title="tr('setting.contactUs')" :label="tr('setting.contactUsDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
-        <uv-cell :title="tr('setting.feedback')" :label="tr('setting.feedbackDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('setting.aboutUpush')" :label="tr('setting.aboutUpushDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goAboutPage"></uv-cell>
+        <uv-cell :title="tr('setting.checkUpdate')" :label="tr('setting.checkUpdateDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goUpdatePage"></uv-cell>
+        <uv-cell :title="tr('setting.userAgreement')" :label="tr('setting.userAgreementDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goAgreementPage"></uv-cell>
+        <uv-cell :title="tr('setting.contactUs')" :label="tr('setting.contactUsDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goContactPage"></uv-cell>
+        <uv-cell :title="tr('setting.feedback')" :label="tr('setting.feedbackDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goFeedbackPage"></uv-cell>
         <uv-cell :title="tr('setting.logoutEntry')" :label="tr('setting.logoutEntryDesc')" isLink :border="false" :cellStyle="cellStyle" :titleStyle="logoutTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="logout"></uv-cell>
       </uv-cell-group>
     </view>
@@ -152,13 +152,37 @@
           url: '/pages/setting/language'
         })
       },
+      goAboutPage() {
+        uni.navigateTo({ url: '/pages/setting/about' })
+      },
+      goUpdatePage() {
+        uni.navigateTo({ url: '/pages/setting/update' })
+      },
+      goAgreementPage() {
+        uni.navigateTo({ url: '/pages/setting/agreement' })
+      },
+      goContactPage() {
+        uni.navigateTo({ url: '/pages/setting/contact' })
+      },
+      goFeedbackPage() {
+        uni.navigateTo({ url: '/pages/setting/feedback' })
+      },
       logout() {
-        uni.removeStorageSync('token')
-        uni.removeStorageSync('userInfo')
-        this.$toast(this.tr('setting.logoutSuccess'), () => {
-          uni.switchTab({
-            url: '/pages/mine/index'
-          })
+        uni.showModal({
+          title: this.tr('setting.logoutConfirmTitle'),
+          content: this.tr('setting.logoutConfirmContent'),
+          success: (res) => {
+            if (!res.confirm) {
+              return
+            }
+            uni.removeStorageSync('token')
+            uni.removeStorageSync('userInfo')
+            this.$toast(this.tr('setting.logoutSuccess'), () => {
+              uni.switchTab({
+                url: '/pages/mine/index'
+              })
+            })
+          }
         })
       },
       applyNavTheme() {
