@@ -69,6 +69,7 @@
     },
     onShow() {
       this.syncState()
+      this.fetchUserInfo()
     },
     computed: {
       themeClass() {
@@ -144,6 +145,19 @@
         uni.setClipboardData({
           data: this.userInfo.id
         })
+      },
+      async fetchUserInfo() {
+        if (!this.token) {
+          return
+        }
+        const res = await this.$apis.user.getUserInfo({})
+        if (res.code === 200) {
+          this.userInfo = {
+            ...this.userInfo,
+            ...res.data
+          }
+          uni.setStorageSync('userInfo', this.userInfo)
+        }
       }
     }
   }

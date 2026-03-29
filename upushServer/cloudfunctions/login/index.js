@@ -91,6 +91,7 @@ exports.main = async (event, context) => {
       data:{
         id:userData._id,
         username:event.username,
+        nickname:userData.nickname,
         token:token,
         context
       }

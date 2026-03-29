@@ -10,6 +10,9 @@ export default {
   updateProfile(data){
     return request('updateProfile',data)
   },
+  getUserInfo(data){
+    return request('getUserInfo',data)
+  },
   getPushMessage(data){
     return request('getPushMessage',data)
   },
