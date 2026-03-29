@@ -7,6 +7,8 @@ exports.main = async (event) => {
   const tokenDB = db.collection('token')
   const usersDB = db.collection('uni-id-users')
   const nickname = (event.nickname || '').trim()
+  const email = (event.email || '').trim().toLowerCase()
+  const emailCode = event.email_code || ''
   const token = event.token || ''
 
   if (!token) {
@@ -25,6 +27,24 @@ exports.main = async (event) => {
     }
   }
 
+  if (email) {
+    const emailReg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+    if (!emailReg.test(email)) {
+      return {
+        code: 201,
+        msg: '邮箱格式不正确',
+        data: {}
+      }
+    }
+    if (emailCode !== '123456') {
+      return {
+        code: 201,
+        msg: '邮箱验证码不正确',
+        data: {}
+      }
+    }
+  }
+
   const tokenInfo = await tokenDB.find({ token }).toArray()
   if (!tokenInfo.length) {
     return {
@@ -35,9 +55,20 @@ exports.main = async (event) => {
   }
 
   const userId = tokenInfo[0].user_id
+  if (email) {
+    const emailExists = await usersDB.find({ email, _id: { $ne: userId } }).toArray()
+    if (emailExists.length) {
+      return {
+        code: 201,
+        msg: '邮箱已存在',
+        data: {}
+      }
+    }
+  }
   await usersDB.updateOne({ _id: userId }, {
     $set: {
-      nickname
+      nickname,
+      ...(email ? { email } : {})
     }
   })
 
@@ -51,6 +82,7 @@ exports.main = async (event) => {
       id: user._id,
       username: user.username,
       nickname: user.nickname,
+      email: user.email || '',
       token: user.token || token
     }
   }

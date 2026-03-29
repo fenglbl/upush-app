@@ -9,6 +9,7 @@ exports.main = async (event) => {
   const t = Date.now()
   const key = 'fenglbl.upush.'
   const username = (event.username || '').trim()
+  const email = (event.email || '').trim().toLowerCase()
   const password = event.password || ''
 
   if (!username) {
@@ -35,6 +36,23 @@ exports.main = async (event) => {
     }
   }
 
+  if (!email) {
+    return {
+      code: 201,
+      msg: '邮箱不能为空',
+      data: {}
+    }
+  }
+
+  const emailReg = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+  if (!emailReg.test(email)) {
+    return {
+      code: 201,
+      msg: '邮箱格式不正确',
+      data: {}
+    }
+  }
+
   const exists = await usersDB.find({ username }).toArray()
   if (exists.length) {
     return {
@@ -44,9 +62,26 @@ exports.main = async (event) => {
     }
   }
 
+  const emailExists = await usersDB.find({ email }).toArray()
+  if (emailExists.length) {
+    return {
+      code: 201,
+      msg: '邮箱已存在',
+      data: {}
+    }
+  }
+
   const pwd = md5(key + password)
+  if (event.email_code !== '123456') {
+    return {
+      code: 201,
+      msg: '邮箱验证码不正确',
+      data: {}
+    }
+  }
   await usersDB.insertOne({
     username,
+    email,
     password: pwd,
     token: '',
     create_date: t,

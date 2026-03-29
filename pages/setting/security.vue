@@ -9,7 +9,7 @@
 
       <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
         <uv-cell :title="tr('setting.securityMemberName')" :value="userInfo.username || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :valueStyle="cellValueStyle"></uv-cell>
-        <uv-cell :title="tr('setting.securityEmail')" :value="userInfo.email || '--'" :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('setting.securityEmail')" :label="tr('setting.securityEmailDesc')" :value="userInfo.email || '--'" isLink :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goEmailSetting"></uv-cell>
       </uv-cell-group>
 
       <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
@@ -95,6 +95,11 @@ export default {
         uni.setStorageSync('userInfo', nextUserInfo)
         this.userInfo = nextUserInfo
       }
+    },
+    goEmailSetting() {
+      uni.navigateTo({
+        url: '/pages/setting/security-email'
+      })
     },
     applyNavTheme() {
       const isDark = this.theme === 'dark'

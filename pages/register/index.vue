@@ -16,6 +16,13 @@
             <input class="input" type="text" :placeholder="tr('register.usernamePlaceholder')" placeholder-class="placeholder" v-model="username" />
           </view>
           <view class="input-box theme-card">
+            <input class="input" type="text" :placeholder="tr('register.emailPlaceholder')" placeholder-class="placeholder" v-model="email" />
+          </view>
+          <view class="verify-box theme-card">
+            <input class="input" type="text" :placeholder="tr('register.emailCodePlaceholder')" placeholder-class="placeholder" v-model="emailCode" />
+            <uv-button size="mini" type="primary" shape="circle" @click="sendEmailCode">{{ tr('setting.securitySendCode') }}</uv-button>
+          </view>
+          <view class="input-box theme-card">
             <input class="input" type="password" :placeholder="tr('register.passwordPlaceholder')" placeholder-class="placeholder" v-model="password" password />
           </view>
           <view class="input-box theme-card">
@@ -34,6 +41,8 @@
     data() {
       return {
         username: '',
+        email: '',
+        emailCode: '',
         password: '',
         confirmPassword: '',
         theme: 'light',
@@ -71,6 +80,18 @@
           uni.showToast({ icon: 'none', title: this.tr('register.usernameRequired') })
           return false
         }
+        if (!this.email) {
+          uni.showToast({ icon: 'none', title: this.tr('register.emailRequired') })
+          return false
+        }
+        if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(this.email)) {
+          uni.showToast({ icon: 'none', title: this.tr('register.emailInvalid') })
+          return false
+        }
+        if (!this.emailCode) {
+          uni.showToast({ icon: 'none', title: this.tr('register.emailCodeRequired') })
+          return false
+        }
         if (!this.password) {
           uni.showToast({ icon: 'none', title: this.tr('register.passwordRequired') })
           return false
@@ -95,6 +116,8 @@
         }
         const res = await this.$apis.user.register({
           username: this.username,
+          email: this.email,
+          email_code: this.emailCode,
           password: this.password
         })
         if (res.code === 200) {
@@ -104,6 +127,17 @@
             })
           })
         }
+      },
+      sendEmailCode() {
+        if (!this.email) {
+          uni.showToast({ icon: 'none', title: this.tr('register.emailRequired') })
+          return
+        }
+        if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(this.email)) {
+          uni.showToast({ icon: 'none', title: this.tr('register.emailInvalid') })
+          return
+        }
+        this.$toast(this.tr('setting.emailCodeSent'))
       },
       toLogin() {
         uni.navigateBack({
@@ -182,6 +216,20 @@
       height: 100rpx;
       padding: 0 26rpx;
       width: 100%;
+    }
+  }
+
+  .verify-box {
+    margin-top: 20rpx;
+    border-radius: 26rpx;
+    padding: 0 16rpx 0 26rpx;
+    display: flex;
+    align-items: center;
+
+    .input {
+      flex: 1;
+      height: 100rpx;
+      padding-right: 20rpx;
     }
   }
 

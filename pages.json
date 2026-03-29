@@ -58,6 +58,12 @@
       }
     },
     {
+      "path": "pages/setting/security-email",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
       "path": "pages/setting/about",
       "style": {
         "navigationBarTitleText": "upsh"
