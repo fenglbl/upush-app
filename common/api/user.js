@@ -7,6 +7,9 @@ export default {
   register(data){
     return request('register',data)
   },
+  updateProfile(data){
+    return request('updateProfile',data)
+  },
   getPushMessage(data){
     return request('getPushMessage',data)
   },
