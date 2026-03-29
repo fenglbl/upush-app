@@ -13,14 +13,21 @@
       </view>
 
       <view class="section-title">{{ tr('mine.accountInfo') }}</view>
-      <uv-cell-group class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); border: 1rpx solid var(--border-color); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
+      <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); border: 1rpx solid var(--border-color); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
         <uv-cell :title="tr('mine.nickname')" :value="userInfo.nickname || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
         <uv-cell :title="tr('mine.username')" :value="userInfo.username || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
-        <uv-cell :title="tr('mine.userId')" :value="userInfo.id || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('mine.userId')" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle">
+          <template #value>
+            <view class="copy-value" @click.stop="copyUserId">
+              <text class="copy-text">{{ userInfo.id || '--' }}</text>
+              <uv-icon name="copy" size="16" color="var(--accent-color)"></uv-icon>
+            </view>
+          </template>
+        </uv-cell>
         <uv-cell :title="tr('mine.languageLabel')" :value="locale === 'zh' ? tr('setting.chinese') : tr('setting.english')" :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
       </uv-cell-group>
 
-      <uv-cell-group class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 28rpx; background: var(--surface-bg); border: 1rpx solid var(--border-color); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
+      <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 28rpx; background: var(--surface-bg); border: 1rpx solid var(--border-color); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
         <uv-cell
           :title="tr('mine.settingEntry')"
           :label="tr('mine.settingHint')"
@@ -140,6 +147,14 @@
           url: '/pages/login/index'
         })
       },
+      copyUserId() {
+        if (!this.userInfo.id) {
+          return
+        }
+        uni.setClipboardData({
+          data: this.userInfo.id
+        })
+      },
       logout() {
         uni.removeStorageSync('token')
         uni.removeStorageSync('userInfo')
@@ -207,6 +222,16 @@
 
 .action-list {
   margin-top: 28rpx;
+}
+
+.copy-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.copy-text {
+  color: var(--text-secondary);
 }
 
 .cell-group :deep(.uv-cell__value) {
