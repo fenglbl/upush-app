@@ -32,6 +32,30 @@
       "style": {
         "navigationBarTitleText": "upsh"
       }
+    },
+    {
+      "path": "pages/setting/theme",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
+      "path": "pages/setting/language",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
+      "path": "pages/setting/profile",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
+      "path": "pages/setting/security",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
     }
   ],
   "globalStyle": {

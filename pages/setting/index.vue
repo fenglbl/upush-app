@@ -7,44 +7,58 @@
         <view class="toolbar-subtitle">{{ tr('setting.subtitle') }}</view>
       </view>
 
+      <view class="section-title">{{ tr('setting.userGroup') }}</view>
+      <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
+        <uv-cell
+          :title="tr('setting.profileTitle')"
+          :label="tr('setting.profileDesc')"
+          isLink
+          :border="true"
+          :cellStyle="cellStyle"
+          :titleStyle="cellTitleStyle"
+          :labelStyle="cellLabelStyle"
+          :valueStyle="cellValueStyle"
+          @click="goProfileSetting"
+        ></uv-cell>
+
+        <uv-cell
+          :title="tr('setting.securityTitle')"
+          :label="tr('setting.securityDesc')"
+          isLink
+          :border="false"
+          :cellStyle="cellStyle"
+          :titleStyle="cellTitleStyle"
+          :labelStyle="cellLabelStyle"
+          :valueStyle="cellValueStyle"
+          @click="goSecuritySetting"
+        ></uv-cell>
+      </uv-cell-group>
+
       <view class="section-title">{{ tr('setting.preferenceGroup') }}</view>
-      <uv-cell-group class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg);  box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
-        <uv-cell :title="tr('setting.themeTitle')" :label="tr('setting.themeDesc')" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle">
-          <template #value>
-            <view class="cell-actions">
-              <uv-button
-                size="mini"
-                shape="circle"
-                :type="theme === 'light' ? 'primary' : 'info'"
-                @click.stop="setTheme('light')"
-              >{{ tr('setting.light') }}</uv-button>
-              <uv-button
-                size="mini"
-                shape="circle"
-                :type="theme === 'dark' ? 'primary' : 'info'"
-                @click.stop="setTheme('dark')"
-              >{{ tr('setting.dark') }}</uv-button>
-            </view>
-          </template>
-        </uv-cell>
-        <uv-cell :title="tr('setting.languageTitle')" :label="tr('setting.languageDesc')" :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle">
-          <template #value>
-            <view class="cell-actions">
-              <uv-button
-                size="mini"
-                shape="circle"
-                :type="locale === 'zh' ? 'primary' : 'info'"
-                @click.stop="setAppLocale('zh')"
-              >{{ tr('setting.chinese') }}</uv-button>
-              <uv-button
-                size="mini"
-                shape="circle"
-                :type="locale === 'en' ? 'primary' : 'info'"
-                @click.stop="setAppLocale('en')"
-              >{{ tr('setting.english') }}</uv-button>
-            </view>
-          </template>
-        </uv-cell>
+      <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
+        <uv-cell
+          :title="tr('setting.themeTitle')"
+          :label="tr('setting.themeDesc')"
+          isLink
+          :border="true"
+          :cellStyle="cellStyle"
+          :titleStyle="cellTitleStyle"
+          :labelStyle="cellLabelStyle"
+          :valueStyle="cellValueStyle"
+          @click="goThemeSetting"
+        ></uv-cell>
+
+        <uv-cell
+          :title="tr('setting.languageTitle')"
+          :label="tr('setting.languageDesc')"
+          isLink
+          :border="false"
+          :cellStyle="cellStyle"
+          :titleStyle="cellTitleStyle"
+          :labelStyle="cellLabelStyle"
+          :valueStyle="cellValueStyle"
+          @click="goLanguageSetting"
+        ></uv-cell>
       </uv-cell-group>
     </view>
   </view>
@@ -102,15 +116,25 @@
       tr(path) {
         return this.$t(path, this.locale)
       },
-      setTheme(theme) {
-        this.theme = theme
-        uni.setStorageSync('appTheme', theme)
-        this.$applyTabBarTheme(this.theme)
-        this.applyNavTheme()
+      goThemeSetting() {
+        uni.navigateTo({
+          url: '/pages/setting/theme'
+        })
       },
-      setAppLocale(locale) {
-        this.locale = this.$setLocale(locale)
-        this.$applyTabBarI18n(this.locale)
+      goProfileSetting() {
+        uni.navigateTo({
+          url: '/pages/setting/profile'
+        })
+      },
+      goSecuritySetting() {
+        uni.navigateTo({
+          url: '/pages/setting/security'
+        })
+      },
+      goLanguageSetting() {
+        uni.navigateTo({
+          url: '/pages/setting/language'
+        })
       },
       applyNavTheme() {
         const isDark = this.theme === 'dark'
@@ -142,12 +166,6 @@
   margin: 8rpx 0 18rpx;
   font-size: 26rpx;
   color: var(--text-secondary);
-}
-
-.cell-actions {
-  display: flex;
-  align-items: center;
-  gap: 12rpx;
 }
 
 .cell-group :deep(.uv-cell__label) {
