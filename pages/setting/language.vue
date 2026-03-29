@@ -9,15 +9,26 @@
 
       <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
         <uv-cell
+          :title="tr('common.followSystem')"
+          clickable
+          isLink
+          rightIcon="checkmark"
+          :border="true"
+          :cellStyle="cellStyle"
+          :titleStyle="localeMode === 'system' ? activeTitleStyle : cellTitleStyle"
+          :rightIconStyle="localeMode === 'system' ? activeIconStyle : hiddenIconStyle"
+          @click="setAppLocaleMode('system')"
+        ></uv-cell>
+        <uv-cell
           :title="tr('setting.chinese')"
           clickable
           isLink
           rightIcon="checkmark"
           :border="true"
           :cellStyle="cellStyle"
-          :titleStyle="localeCurrent === 0 ? activeTitleStyle : cellTitleStyle"
-          :rightIconStyle="localeCurrent === 0 ? activeIconStyle : hiddenIconStyle"
-          @click="setAppLocale('zh')"
+          :titleStyle="localeMode === 'zh' ? activeTitleStyle : cellTitleStyle"
+          :rightIconStyle="localeMode === 'zh' ? activeIconStyle : hiddenIconStyle"
+          @click="setAppLocaleMode('zh')"
         ></uv-cell>
         <uv-cell
           :title="tr('setting.english')"
@@ -26,9 +37,9 @@
           rightIcon="checkmark"
           :border="false"
           :cellStyle="cellStyle"
-          :titleStyle="localeCurrent === 1 ? activeTitleStyle : cellTitleStyle"
-          :rightIconStyle="localeCurrent === 1 ? activeIconStyle : hiddenIconStyle"
-          @click="setAppLocale('en')"
+          :titleStyle="localeMode === 'en' ? activeTitleStyle : cellTitleStyle"
+          :rightIconStyle="localeMode === 'en' ? activeIconStyle : hiddenIconStyle"
+          @click="setAppLocaleMode('en')"
         ></uv-cell>
       </uv-cell-group>
     </view>
@@ -40,7 +51,8 @@
     data() {
       return {
         theme: 'light',
-        locale: 'zh'
+        locale: 'zh',
+        localeMode: 'system'
       }
     },
     onLoad() {
@@ -80,14 +92,12 @@
         return {
           color: 'transparent'
         }
-      },
-      localeCurrent() {
-        return this.locale === 'zh' ? 0 : 1
       }
     },
     methods: {
       syncState() {
         this.theme = uni.getStorageSync('appTheme') || 'light'
+        this.localeMode = uni.getStorageSync('appLocaleMode') || uni.getStorageSync('appLocale') || 'system'
         this.locale = this.$getLocale()
         this.$applyTabBarI18n(this.locale)
         this.$applyTabBarTheme(this.theme)
@@ -96,8 +106,9 @@
       tr(path) {
         return this.$t(path, this.locale)
       },
-      setAppLocale(locale) {
-        this.locale = this.$setLocale(locale)
+      setAppLocaleMode(localeMode) {
+        this.locale = this.$setLocaleMode(localeMode)
+        this.localeMode = localeMode
         this.$applyTabBarI18n(this.locale)
       },
       applyNavTheme() {

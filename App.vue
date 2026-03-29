@@ -20,10 +20,12 @@
 		},
       methods: {
         initTheme() {
-          const savedTheme = uni.getStorageSync('appTheme')
+          const savedTheme = uni.getStorageSync('appThemeMode') || uni.getStorageSync('appTheme')
           const systemInfo = uni.getSystemInfoSync()
           const systemTheme = systemInfo.theme === 'dark' ? 'dark' : 'light'
-          const theme = savedTheme || systemTheme
+          const themeMode = ['system', 'light', 'dark'].includes(savedTheme) ? savedTheme : (savedTheme || 'system')
+          const theme = themeMode === 'system' ? systemTheme : themeMode
+          uni.setStorageSync('appThemeMode', themeMode)
           uni.setStorageSync('appTheme', theme)
 		}
 		}

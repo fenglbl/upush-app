@@ -225,15 +225,29 @@ function resolveMessage(locale, path) {
 }
 
 export function getLocale() {
-  const locale = getDefaultLocale()
+  const savedLocaleMode = uni.getStorageSync('appLocaleMode') || uni.getStorageSync('appLocale')
+  const localeMode = ['system', 'zh', 'en'].includes(savedLocaleMode) ? savedLocaleMode : 'system'
+  const systemLocale = getDefaultLocale()
+  const locale = localeMode === 'system' ? systemLocale : localeMode
+  uni.setStorageSync('appLocaleMode', localeMode)
   uni.setStorageSync('appLocale', locale)
   return locale
 }
 
 export function setLocale(locale) {
   const nextLocale = locale === 'en' ? 'en' : 'zh'
+  uni.setStorageSync('appLocaleMode', nextLocale)
   uni.setStorageSync('appLocale', nextLocale)
   return nextLocale
+}
+
+export function setLocaleMode(localeMode) {
+  const nextMode = ['system', 'zh', 'en'].includes(localeMode) ? localeMode : 'system'
+  const systemLocale = getDefaultLocale()
+  const locale = nextMode === 'system' ? systemLocale : nextMode
+  uni.setStorageSync('appLocaleMode', nextMode)
+  uni.setStorageSync('appLocale', locale)
+  return locale
 }
 
 export function t(path, locale) {
