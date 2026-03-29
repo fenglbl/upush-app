@@ -29,7 +29,7 @@
           clearable
           border="surround"
           shape="circle"
-          customStyle="background: var(--surface-strong);"
+          :customStyle="inputStyle"
         ></uv-input>
 
         <uv-button type="primary" shape="circle" size="large" customStyle="height: 92rpx; margin-top: 32rpx;" @click="saveProfile">{{ tr('setting.profileSave') }}</uv-button>
@@ -77,6 +77,13 @@ export default {
     cellValueStyle() {
       return {
         color: 'var(--text-secondary)'
+      }
+    },
+    inputStyle() {
+      return {
+        background: 'var(--surface-strong)',
+        color: 'var(--text-primary)',
+        borderColor: 'var(--border-color)'
       }
     }
   },
