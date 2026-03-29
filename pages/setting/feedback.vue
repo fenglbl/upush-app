@@ -84,10 +84,26 @@ export default {
       return this.$t(path, this.locale)
     },
     async submitFeedback() {
-      if (!this.form.type || !this.form.contact || !this.form.content) {
+      if (!this.form.type) {
         uni.showToast({
           icon: 'none',
-          title: this.tr('setting.feedbackContentPlaceholder')
+          title: this.tr('setting.feedbackTypeRequired')
+        })
+        return
+      }
+
+      if (!this.form.contact) {
+        uni.showToast({
+          icon: 'none',
+          title: this.tr('setting.feedbackContactRequired')
+        })
+        return
+      }
+
+      if (!this.form.content) {
+        uni.showToast({
+          icon: 'none',
+          title: this.tr('setting.feedbackContentRequired')
         })
         return
       }
