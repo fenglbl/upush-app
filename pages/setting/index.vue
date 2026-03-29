@@ -7,8 +7,8 @@
         <view class="toolbar-subtitle">{{ tr('setting.subtitle') }}</view>
       </view>
 
-      <view class="section-title">{{ tr('setting.userGroup') }}</view>
-      <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
+      <view v-if="token" class="section-title">{{ tr('setting.userGroup') }}</view>
+      <uv-cell-group v-if="token" :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
         <uv-cell
           :title="tr('setting.profileTitle')"
           :label="tr('setting.profileDesc')"
@@ -66,11 +66,12 @@
         <uv-cell :title="tr('setting.aboutUpush')" :label="tr('setting.aboutUpushDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goAboutPage"></uv-cell>
         <uv-cell :title="tr('setting.checkUpdate')" :label="tr('setting.checkUpdateDesc')" isLink :value="versionName" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="checkVersion"></uv-cell>
         <uv-cell :title="tr('setting.userAgreement')" :label="tr('setting.userAgreementDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goAgreementPage"></uv-cell>
+        <uv-cell :title="tr('setting.privacyPolicy')" :label="tr('setting.privacyPolicyDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goPrivacyPage"></uv-cell>
         <uv-cell :title="tr('setting.contactUs')" :label="tr('setting.contactUsDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goContactPage"></uv-cell>
         <uv-cell :title="tr('setting.feedback')" :label="tr('setting.feedbackDesc')" isLink :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goFeedbackPage"></uv-cell>
       </uv-cell-group>
 
-      <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
+      <uv-cell-group v-if="token" :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
         <uv-cell :title="tr('setting.logoutEntry')" :label="tr('setting.logoutEntryDesc')" isLink :border="false" :cellStyle="cellStyle" :titleStyle="logoutTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="logout"></uv-cell>
       </uv-cell-group>
     </view>
@@ -83,6 +84,7 @@
       return {
         theme: 'light',
         locale: 'zh',
+        token: '',
         versionName: '0.0.1'
       }
     },
@@ -141,6 +143,7 @@
       syncState() {
         this.theme = uni.getStorageSync('appTheme') || 'light'
         this.locale = this.$getLocale()
+        this.token = uni.getStorageSync('token') || ''
         const accountInfo = uni.getAccountInfoSync && uni.getAccountInfoSync()
         const miniVersion = accountInfo?.miniProgram?.version
         this.versionName = miniVersion || '0.0.1'
@@ -176,6 +179,9 @@
       },
       goAgreementPage() {
         uni.navigateTo({ url: '/pages/setting/agreement' })
+      },
+      goPrivacyPage() {
+        uni.navigateTo({ url: '/pages/setting/privacy' })
       },
       goContactPage() {
         uni.navigateTo({ url: '/pages/setting/contact' })

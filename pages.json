@@ -70,6 +70,12 @@
       }
     },
     {
+      "path": "pages/setting/privacy",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
       "path": "pages/setting/contact",
       "style": {
         "navigationBarTitleText": "upsh"

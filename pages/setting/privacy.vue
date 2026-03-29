@@ -1,10 +1,10 @@
 <template>
   <view class="theme-page theme-panel" :class="themeClass">
     <view class="setting-shell">
-      <app-navbar :title="tr('setting.userAgreementPageTitle')" :theme="theme"></app-navbar>
+      <app-navbar :title="tr('setting.privacyPolicyPageTitle')" :theme="theme"></app-navbar>
 
       <view class="toolbar">
-        <view class="toolbar-subtitle">{{ tr('setting.userAgreementPageDesc') }}</view>
+        <view class="toolbar-subtitle">{{ tr('setting.privacyPolicyPageDesc') }}</view>
       </view>
 
       <uv-loading-page
@@ -22,8 +22,8 @@
       </view>
 
       <view class="placeholder-card theme-card" v-else>
-        <uv-empty mode="data" :text="tr('setting.userAgreementPageTitle')"></uv-empty>
-        <view class="placeholder-desc">{{ tr('setting.userAgreementPageDesc') }}</view>
+        <uv-empty mode="data" :text="tr('setting.privacyPolicyPageTitle')"></uv-empty>
+        <view class="placeholder-desc">{{ tr('setting.privacyPolicyPageDesc') }}</view>
       </view>
     </view>
   </view>
@@ -68,7 +68,7 @@ export default {
     async fetchAgreement() {
       this.loading = true
       const res = await this.$apis.user.getAgreement({
-        agreement_id: 'user_service'
+        agreement_id: 'privacy_policy'
       })
       this.loading = false
 

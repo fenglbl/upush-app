@@ -1,3 +1,5 @@
+const SUPPORTED_LOCALES = ['zh', 'en']
+
 const messages = {
   zh: {
     common: {
@@ -109,6 +111,11 @@ const messages = {
       userAgreementDesc: '查看平台服务条款与使用说明',
       userAgreementPageTitle: '用户服务协议',
       userAgreementPageDesc: '阅读平台服务条款、使用规范与说明',
+      privacyPolicy: '隐私协议',
+      privacyPolicyDesc: '查看个人信息收集、使用与保护说明',
+      privacyPolicyPageTitle: '隐私协议',
+      privacyPolicyPageDesc: '阅读隐私保护政策与个人信息处理说明',
+      agreementLoadFailed: '协议加载失败',
       contactUs: '联系我们',
       contactUsDesc: '获取联系方式与商务合作信息',
       contactUsPageTitle: '联系我们',
@@ -245,6 +252,11 @@ const messages = {
       userAgreementDesc: 'Read service terms and usage details',
       userAgreementPageTitle: 'User Agreement',
       userAgreementPageDesc: 'Read service terms, usage rules and related details',
+      privacyPolicy: 'Privacy Policy',
+      privacyPolicyDesc: 'Read how personal data is collected, used and protected',
+      privacyPolicyPageTitle: 'Privacy Policy',
+      privacyPolicyPageDesc: 'Read the privacy policy and personal data processing details',
+      agreementLoadFailed: 'Failed to load agreement',
       contactUs: 'Contact Us',
       contactUsDesc: 'Get contact details and business cooperation info',
       contactUsPageTitle: 'Contact Us',
@@ -273,15 +285,29 @@ const messages = {
   }
 }
 
-function getDefaultLocale() {
-  const savedLocale = uni.getStorageSync('appLocale')
-  if (savedLocale === 'zh' || savedLocale === 'en') {
-    return savedLocale
+function normalizeLocaleTag(localeTag) {
+  if (!localeTag) {
+    return 'en'
   }
 
+  const normalizedTag = String(localeTag).replace(/_/g, '-').toLowerCase()
+  const [primaryLanguage] = normalizedTag.split('-')
+
+  if (SUPPORTED_LOCALES.includes(primaryLanguage)) {
+    return primaryLanguage
+  }
+
+  return 'en'
+}
+
+function getSystemLocale() {
   const systemInfo = uni.getSystemInfoSync()
-  const language = (systemInfo.language || '').toLowerCase()
-  return language.startsWith('zh') ? 'zh' : 'en'
+  const localeTag = systemInfo.appLanguage || systemInfo.osLanguage || systemInfo.hostLanguage || systemInfo.language || ''
+  return normalizeLocaleTag(localeTag)
+}
+
+function getDefaultLocale() {
+  return getSystemLocale()
 }
 
 function resolveMessage(locale, path) {
@@ -291,7 +317,7 @@ function resolveMessage(locale, path) {
 export function getLocale() {
   const savedLocaleMode = uni.getStorageSync('appLocaleMode') || uni.getStorageSync('appLocale')
   const localeMode = ['system', 'zh', 'en'].includes(savedLocaleMode) ? savedLocaleMode : 'system'
-  const systemLocale = getDefaultLocale()
+  const systemLocale = getSystemLocale()
   const locale = localeMode === 'system' ? systemLocale : localeMode
   uni.setStorageSync('appLocaleMode', localeMode)
   uni.setStorageSync('appLocale', locale)
@@ -307,7 +333,7 @@ export function setLocale(locale) {
 
 export function setLocaleMode(localeMode) {
   const nextMode = ['system', 'zh', 'en'].includes(localeMode) ? localeMode : 'system'
-  const systemLocale = getDefaultLocale()
+  const systemLocale = getSystemLocale()
   const locale = nextMode === 'system' ? systemLocale : nextMode
   uni.setStorageSync('appLocaleMode', nextMode)
   uni.setStorageSync('appLocale', locale)
