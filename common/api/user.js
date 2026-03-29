@@ -13,6 +13,9 @@ export default {
   getUserInfo(data){
     return request('getUserInfo',data)
   },
+  checkVersion(data){
+    return request('checkVersion',data)
+  },
   getPushMessage(data){
     return request('getPushMessage',data)
   },
