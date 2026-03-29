@@ -2,6 +2,8 @@ const messages = {
   zh: {
     common: {
       appName: 'upush',
+      followSystem: '跟随系统',
+      loading: '数据加载中',
       darkMode: '夜间模式',
       lightMode: '日间模式',
       theme: '主题',
@@ -77,6 +79,8 @@ const messages = {
       themeDesc: '切换日间模式或夜间模式',
       languageTitle: '界面语言',
       languageDesc: '切换中文或英文界面',
+      appearancePageTitle: '外观模式',
+      languagePageTitle: '界面语言',
       dark: '夜间模式',
       light: '日间模式',
       chinese: '中文',
@@ -86,6 +90,8 @@ const messages = {
   en: {
     common: {
       appName: 'upush',
+      followSystem: 'Follow System',
+      loading: 'Loading data',
       darkMode: 'Dark Mode',
       lightMode: 'Light Mode',
       theme: 'Theme',
@@ -161,6 +167,8 @@ const messages = {
       themeDesc: 'Switch between light mode and dark mode',
       languageTitle: 'Interface Language',
       languageDesc: 'Switch between Chinese and English',
+      appearancePageTitle: 'Appearance',
+      languagePageTitle: 'Language',
       dark: 'Dark Mode',
       light: 'Light Mode',
       chinese: 'Chinese',

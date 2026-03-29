@@ -1,10 +1,18 @@
 <template>
   <view class="theme-page theme-panel" :class="themeClass">
+    <uv-loading-page
+      :loading="loading"
+      :loadingText="tr('common.loading')"
+      :bgColor="loadingBgColor"
+      color="#8fa2b8"
+      loadingColor="#54b2ff"
+    ></uv-loading-page>
+
     <view class="home-shell">
       <app-navbar :title="tr('home.navTitle')" :theme="theme" :autoBack="false" :showBack="false"></app-navbar>
       <view class="toolbar-subtitle">{{ tr('home.subtitle') }}</view>
 
-      <uv-cell-group class="info-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 28rpx; background: var(--surface-bg); border: 1rpx solid var(--border-color); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
+      <!-- <uv-cell-group class="info-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 28rpx; background: var(--surface-bg); border: 1rpx solid var(--border-color); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
         <uv-cell
           :title="tr('home.currentUserId')"
           :label="tr('home.tapToCopy')"
@@ -17,7 +25,7 @@
           :valueStyle="cellValueStyle"
           @click="copy"
         ></uv-cell>
-      </uv-cell-group>
+      </uv-cell-group> -->
 
       <view class="list" v-if="token">
         <view class="list-item theme-card" v-for="(item, index) of list" :key="index">
@@ -46,12 +54,13 @@
         uid: '',
         page: 1,
         total: 1,
+        loading: false,
         theme: 'light',
         locale: 'zh'
       }
     },
     onLoad() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+        this.theme = uni.getStorageSync('appTheme') || 'light'
       this.locale = this.$getLocale()
       this.$applyTabBarI18n(this.locale)
       this.$applyTabBarTheme(this.theme)
@@ -60,7 +69,7 @@
       this.uid = userInfo.id || ''
     },
     onShow() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+        this.theme = uni.getStorageSync('appTheme') || 'light'
       this.locale = this.$getLocale()
       this.$applyTabBarI18n(this.locale)
       this.$applyTabBarTheme(this.theme)
@@ -115,6 +124,9 @@
         return {
           color: 'var(--accent-color)'
         }
+      },
+      loadingBgColor() {
+        return this.theme === 'dark' ? 'rgba(13, 23, 34, 0.88)' : 'rgba(245, 249, 255, 0.92)'
       }
     },
     methods: {
@@ -130,6 +142,9 @@
       },
       init() {
         const cid = uni.getStorageSync('cid')
+        if (this.page === 1) {
+          this.loading = true
+        }
         this.$apis.user.getPushMessage({ device_id: cid, page: this.page, pageSize: 20 }).then(res => {
           if (this.page == 1) {
             this.list = res.data.list
@@ -138,6 +153,8 @@
           }
           this.total = res.data.total
           uni.stopPullDownRefresh()
+        }).finally(() => {
+          this.loading = false
         })
       },
       copy() {
