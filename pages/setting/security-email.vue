@@ -97,7 +97,14 @@ export default {
         uni.showToast({ icon: 'none', title: this.tr('register.emailInvalid') })
         return
       }
-      this.$toast(this.tr('setting.emailCodeSent'))
+      this.$apis.user.sendEmailCode({
+        email: this.email,
+        scene: 'update_email'
+      }).then((res) => {
+        if (res.code === 200) {
+          this.$toast(res.msg)
+        }
+      })
     },
     async saveEmail() {
       if (!this.email) {

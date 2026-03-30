@@ -25,6 +25,9 @@ export default {
   submitFeedback(data){
     return request('submitFeedback',data)
   },
+  sendEmailCode(data){
+    return request('sendEmailCode',data)
+  },
   getPushMessage(data){
     return request('getPushMessage',data)
   },

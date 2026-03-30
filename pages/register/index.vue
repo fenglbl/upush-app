@@ -137,7 +137,14 @@
           uni.showToast({ icon: 'none', title: this.tr('register.emailInvalid') })
           return
         }
-        this.$toast(this.tr('setting.emailCodeSent'))
+        this.$apis.user.sendEmailCode({
+          email: this.email,
+          scene: 'register'
+        }).then((res) => {
+          if (res.code === 200) {
+            this.$toast(res.msg)
+          }
+        })
       },
       toLogin() {
         uni.navigateBack({

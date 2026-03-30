@@ -2,6 +2,7 @@
 
 const md5 = require('md5')
 const uniCloud = require('../../db/index.js')
+const { verifyEmailCode } = require('../_shared/emailCode.js')
 
 exports.main = async (event) => {
   const db = uniCloud.database()
@@ -71,14 +72,20 @@ exports.main = async (event) => {
     }
   }
 
-  const pwd = md5(key + password)
-  if (event.email_code !== '123456') {
+  const verifyResult = await verifyEmailCode(db, {
+    email,
+    code: event.email_code || '',
+    scene: 'register'
+  })
+  if (!verifyResult.valid) {
     return {
       code: 201,
-      msg: '邮箱验证码不正确',
+      msg: verifyResult.message,
       data: {}
     }
   }
+
+  const pwd = md5(key + password)
   await usersDB.insertOne({
     username,
     email,

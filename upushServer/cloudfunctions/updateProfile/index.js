@@ -1,6 +1,7 @@
 'use strict';
 
 const uniCloud = require('../../db/index.js')
+const { verifyEmailCode } = require('../_shared/emailCode.js')
 
 exports.main = async (event) => {
   const db = uniCloud.database()
@@ -36,10 +37,15 @@ exports.main = async (event) => {
         data: {}
       }
     }
-    if (emailCode !== '123456') {
+    const verifyResult = await verifyEmailCode(db, {
+      email,
+      code: emailCode,
+      scene: 'update_email'
+    })
+    if (!verifyResult.valid) {
       return {
         code: 201,
-        msg: '邮箱验证码不正确',
+        msg: verifyResult.message,
         data: {}
       }
     }
