@@ -1,7 +1,7 @@
 'use strict';
 
 const uniCloud = require('../../db/index.js')
-const { verifyEmailCode } = require('../_shared/emailCode.js')
+const { verifyEmailCode } = require('../../utils/emailCode.js')
 
 exports.main = async (event) => {
   const db = uniCloud.database()
