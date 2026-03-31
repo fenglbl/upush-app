@@ -58,7 +58,25 @@
       }
     },
     {
-      "path": "pages/setting/security-email",
+      "path": "pages/setting/security-email-verify",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
+      "path": "pages/setting/security-email-new",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
+      "path": "pages/setting/security-password",
+      "style": {
+        "navigationBarTitleText": "upsh"
+      }
+    },
+    {
+      "path": "pages/setting/security-close-account",
       "style": {
         "navigationBarTitleText": "upsh"
       }

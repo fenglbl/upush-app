@@ -2,7 +2,14 @@
 
 const { Resend } = require('resend')
 const uniCloud = require('../../db/index.js')
-const { CODE_EXPIRE_MINUTES, createEmailCode, saveEmailCode } = require('../_shared/emailCode.js')
+const {
+  CODE_EXPIRE_MINUTES,
+  createEmailCode,
+  checkEmailCodeSendRateLimit,
+  saveEmailCode
+} = require('../../utils/emailCode.js')
+
+const ALLOWED_SCENES = new Set(['register', 'update_email', 'verify_old_email', 'verify_new_email'])
 
 exports.main = async (event) => {
   const db = uniCloud.database()
@@ -26,11 +33,32 @@ exports.main = async (event) => {
     }
   }
 
+  if (!ALLOWED_SCENES.has(scene)) {
+    return {
+      code: 201,
+      msg: '不支持的验证码场景',
+      data: {}
+    }
+  }
+
   if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL) {
     return {
       code: 201,
       msg: '邮件服务未配置',
       data: {}
+    }
+  }
+
+  const rateLimitResult = await checkEmailCodeSendRateLimit(db, { email, scene })
+  if (!rateLimitResult.allowed) {
+    return {
+      code: 429,
+      msg: rateLimitResult.message,
+      data: {
+        email,
+        scene,
+        retryAfterSeconds: rateLimitResult.retryAfterSeconds || 0
+      }
     }
   }
 

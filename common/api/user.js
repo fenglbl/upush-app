@@ -28,6 +28,15 @@ export default {
   sendEmailCode(data){
     return request('sendEmailCode',data)
   },
+  verifyOldEmailForChange(data){
+    return request('verifyOldEmailForChange',data)
+  },
+  changePassword(data){
+    return request('changePassword',data)
+  },
+  closeAccount(data){
+    return request('closeAccount',data)
+  },
   getPushMessage(data){
     return request('getPushMessage',data)
   },

@@ -9,12 +9,12 @@
 
       <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
         <uv-cell :title="tr('setting.securityMemberName')" :value="userInfo.username || '--'" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :valueStyle="cellValueStyle"></uv-cell>
-        <uv-cell :title="tr('setting.securityEmail')" :label="tr('setting.securityEmailDesc')" :value="userInfo.email || '--'" isLink :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goEmailSetting"></uv-cell>
+        <uv-cell :title="tr('setting.securityEmail')" :label="tr('setting.securityEmailDesc')" :value="maskedEmail" isLink :border="false" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goVerifyPage('change_email')"></uv-cell>
       </uv-cell-group>
 
       <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
-        <uv-cell :title="tr('setting.securityChangePassword')" :label="tr('setting.securityChangePasswordDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
-        <uv-cell :title="tr('setting.securityCloseAccount')" :label="tr('setting.securityCloseAccountDesc')" isLink :border="false" :cellStyle="cellStyle" :titleStyle="dangerTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle"></uv-cell>
+        <uv-cell :title="tr('setting.securityChangePassword')" :label="tr('setting.securityChangePasswordDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goVerifyPage('change_password')"></uv-cell>
+        <uv-cell :title="tr('setting.securityCloseAccount')" :label="tr('setting.securityCloseAccountDesc')" isLink :border="false" :cellStyle="cellStyle" :titleStyle="dangerTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goVerifyPage('close_account')"></uv-cell>
       </uv-cell-group>
     </view>
   </view>
@@ -39,6 +39,9 @@ export default {
   computed: {
     themeClass() {
       return this.theme === 'dark' ? 'theme-dark' : 'theme-light'
+    },
+    maskedEmail() {
+      return this.maskEmail(this.userInfo.email)
     },
     cellStyle() {
       return {
@@ -81,6 +84,26 @@ export default {
     tr(path) {
       return this.$t(path, this.locale)
     },
+    maskEmail(email) {
+      if (!email) {
+        return '--'
+      }
+
+      const [localPart, domain] = String(email).split('@')
+      if (!localPart || !domain) {
+        return email
+      }
+
+      if (localPart.length <= 1) {
+        return `${localPart}***@${domain}`
+      }
+
+      if (localPart.length === 2) {
+        return `${localPart[0]}***@${domain}`
+      }
+
+      return `${localPart[0]}***${localPart[localPart.length - 1]}@${domain}`
+    },
     async fetchUserInfo() {
       const token = uni.getStorageSync('token')
       if (!token) {
@@ -96,9 +119,9 @@ export default {
         this.userInfo = nextUserInfo
       }
     },
-    goEmailSetting() {
+    goVerifyPage(action) {
       uni.navigateTo({
-        url: '/pages/setting/security-email'
+        url: `/pages/setting/security-email-verify?action=${action}`
       })
     },
     applyNavTheme() {
