@@ -29,6 +29,9 @@ export default {
   onLoad(options = {}) {
     this.syncState()
     this.changeEmailToken = decodeURIComponent(options.changeEmailToken || '')
+    if (!this.ensureValidSession()) {
+      return
+    }
   },
   methods: {
     syncState() {
@@ -38,6 +41,16 @@ export default {
     },
     tr(path) {
       return this.$t(path, this.locale)
+    },
+    ensureValidSession() {
+      if (this.changeEmailToken) {
+        return true
+      }
+      uni.showToast({ icon: 'none', title: this.tr('setting.changeEmailSessionInvalid') })
+      setTimeout(() => {
+        uni.redirectTo({ url: '/pages/setting/security' })
+      }, 300)
+      return false
     },
     async submit() {
       if (!this.changeEmailToken) {

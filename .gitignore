@@ -1,6 +1,8 @@
 .hbuilderx/
 unpackage/
 uniCloud-aliyun/
+uniCloud-dcloud/
+/upushServer/
 .env
 *.env
 !.env.example
@@ -28,3 +30,6 @@ Thumbs.db
 # temporary commit message files
 .git-msg*
 .git-commit-message.txt
+
+# local backup / temp files
+vite.config.js.dis

@@ -68,11 +68,17 @@ export default {
     this.syncState()
     this.oldEmail = decodeURIComponent(options.oldEmail || this.userInfo.email || '')
     this.changeEmailToken = decodeURIComponent(options.changeEmailToken || '')
+    if (!this.ensureValidSession()) {
+      return
+    }
   },
   onShow() {
     this.$applyTabBarI18n(this.locale)
     this.$applyTabBarTheme(this.theme)
     this.applyNavTheme()
+    if (!this.ensureValidSession()) {
+      return
+    }
     this.restoreNewEmailCountdown()
   },
   onUnload() {
@@ -105,6 +111,16 @@ export default {
     },
     tr(path) {
       return this.$t(path, this.locale)
+    },
+    ensureValidSession() {
+      if (this.changeEmailToken) {
+        return true
+      }
+      uni.showToast({ icon: 'none', title: this.tr('setting.changeEmailSessionInvalid') })
+      setTimeout(() => {
+        uni.redirectTo({ url: '/pages/setting/security' })
+      }, 300)
+      return false
     },
     maskEmail(email) {
       if (!email) {
