@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
 export default {
   data() {
     return {
@@ -90,7 +92,7 @@ export default {
   },
   methods: {
     syncState() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.theme = resolveTheme()
       this.locale = this.$getLocale()
       this.profile = uni.getStorageSync('userInfo') || {}
       this.nickname = this.profile.nickname || this.profile.username || ''
@@ -212,3 +214,4 @@ export default {
   font-weight: 600;
 }
 </style>
+

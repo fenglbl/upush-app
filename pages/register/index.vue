@@ -20,7 +20,7 @@
           </view>
           <view class="verify-box theme-card">
             <input class="input" type="text" :placeholder="tr('register.emailCodePlaceholder')" placeholder-class="placeholder" v-model="emailCode" />
-            <uv-button size="mini" type="primary" shape="circle" @click="sendEmailCode">{{ tr('setting.securitySendCode') }}</uv-button>
+            <uv-button size="mini" type="primary" shape="circle" @click="sendEmailCode">{{ tr('register.sendEmailCode') }}</uv-button>
           </view>
           <view class="input-box theme-card">
             <input class="input" type="password" :placeholder="tr('register.passwordPlaceholder')" placeholder-class="placeholder" v-model="password" password />
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
   export default {
     data() {
       return {
@@ -50,12 +52,12 @@
       }
     },
     onLoad() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.theme = resolveTheme()
       this.locale = this.$getLocale()
       this.applyNavTheme()
     },
     onShow() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.theme = resolveTheme()
       this.locale = this.$getLocale()
       this.applyNavTheme()
     },
@@ -267,3 +269,4 @@
   }
 }
 </style>
+

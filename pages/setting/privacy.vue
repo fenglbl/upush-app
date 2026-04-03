@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
 export default {
   data() {
     return {
@@ -56,7 +58,7 @@ export default {
   },
   methods: {
     syncState() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.theme = resolveTheme()
       this.locale = this.$getLocale()
       this.$applyTabBarI18n(this.locale)
       this.$applyTabBarTheme(this.theme)
@@ -107,3 +109,4 @@ export default {
 .placeholder-card { padding: 48rpx 36rpx; border-radius: 28rpx; }
 .placeholder-desc { color: var(--text-secondary); line-height: 42rpx; text-align: center; }
 </style>
+

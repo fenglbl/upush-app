@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
   export default {
     data() {
       return {
@@ -96,7 +98,7 @@
     },
     methods: {
       syncState() {
-        this.theme = uni.getStorageSync('appTheme') || 'light'
+        this.theme = resolveTheme()
         this.localeMode = uni.getStorageSync('appLocaleMode') || uni.getStorageSync('appLocale') || 'system'
         this.locale = this.$getLocale()
         this.$applyTabBarI18n(this.locale)
@@ -137,3 +139,4 @@
   color: var(--text-secondary);
 }
 </style>
+

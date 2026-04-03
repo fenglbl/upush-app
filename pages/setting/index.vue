@@ -64,7 +64,7 @@
       <view class="section-title">{{ tr('setting.aboutGroup') }}</view>
       <uv-cell-group :border="false" class="cell-group" customStyle="border-radius: 28rpx; overflow: hidden; margin-bottom: 24rpx; background: var(--surface-bg); box-shadow: 0 24rpx 60rpx -34rpx var(--shadow-color);">
         <uv-cell :title="tr('setting.aboutUpush')" :label="tr('setting.aboutUpushDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goAboutPage"></uv-cell>
-        <uv-cell :title="tr('setting.checkUpdate')" :label="tr('setting.checkUpdateDesc')" isLink :value="versionName" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="checkVersion"></uv-cell>
+        <uv-cell :title="tr('setting.checkUpdate')" :label="tr('setting.checkUpdateDesc')" isLink :value="displayVersionName" :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="checkVersion"></uv-cell>
         <uv-cell :title="tr('setting.userAgreement')" :label="tr('setting.userAgreementDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goAgreementPage"></uv-cell>
         <uv-cell :title="tr('setting.privacyPolicy')" :label="tr('setting.privacyPolicyDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goPrivacyPage"></uv-cell>
         <uv-cell :title="tr('setting.contactUs')" :label="tr('setting.contactUsDesc')" isLink :border="true" :cellStyle="cellStyle" :titleStyle="cellTitleStyle" :labelStyle="cellLabelStyle" :valueStyle="cellValueStyle" @click="goContactPage"></uv-cell>
@@ -79,13 +79,15 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
   export default {
     data() {
       return {
         theme: 'light',
         locale: 'zh',
         token: '',
-        versionName: '0.0.1'
+        versionName: '1.0.0'
       }
     },
     onLoad() {
@@ -126,6 +128,9 @@
           fontWeight: '600'
         }
       },
+      displayVersionName() {
+        return this.versionName ? `V${this.versionName}` : 'V1.0.0'
+      },
       currentPlatform() {
         // #ifdef APP-PLUS
         return 'app'
@@ -141,18 +146,33 @@
     },
     methods: {
       syncState() {
-        this.theme = uni.getStorageSync('appTheme') || 'light'
+        this.theme = resolveTheme()
         this.locale = this.$getLocale()
         this.token = uni.getStorageSync('token') || ''
-        const accountInfo = uni.getAccountInfoSync && uni.getAccountInfoSync()
-        const miniVersion = accountInfo?.miniProgram?.version
-        this.versionName = miniVersion || '0.0.1'
+        this.versionName = this.getRuntimeVersionName()
         this.$applyTabBarI18n(this.locale)
         this.$applyTabBarTheme(this.theme)
         this.applyNavTheme()
       },
       tr(path) {
         return this.$t(path, this.locale)
+      },
+      getRuntimeVersionName() {
+        // #ifdef APP-PLUS
+        if (typeof plus !== 'undefined' && plus.runtime && plus.runtime.version) {
+          return plus.runtime.version
+        }
+        // #endif
+
+        // #ifdef MP-WEIXIN
+        const accountInfo = uni.getAccountInfoSync && uni.getAccountInfoSync()
+        const miniVersion = accountInfo?.miniProgram?.version
+        if (miniVersion) {
+          return miniVersion
+        }
+        // #endif
+
+        return '1.0.0'
       },
       goThemeSetting() {
         uni.navigateTo({
@@ -273,3 +293,4 @@
   line-height: 36rpx;
 }
 </style>
+

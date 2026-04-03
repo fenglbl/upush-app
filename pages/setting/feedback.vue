@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
 export default {
   data() {
     return {
@@ -74,7 +76,7 @@ export default {
   },
   methods: {
     syncState() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.theme = resolveTheme()
       this.locale = this.$getLocale()
       this.$applyTabBarI18n(this.locale)
       this.$applyTabBarTheme(this.theme)
@@ -141,3 +143,4 @@ export default {
 .feedback-radio-group :deep(.uv-radio) { margin-right: 28rpx; }
 .feedback-radio-group :deep(.uv-radio:last-child) { margin-right: 0; }
 </style>
+

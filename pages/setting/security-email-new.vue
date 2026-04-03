@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
 const COUNTDOWN_SECONDS = 90
 const NEW_EMAIL_COUNTDOWN_KEY = 'securityEmailNewCountdownUntil'
 
@@ -102,7 +104,7 @@ export default {
   },
   methods: {
     syncState() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.theme = resolveTheme()
       this.locale = this.$getLocale()
       this.userInfo = uni.getStorageSync('userInfo') || {}
       this.$applyTabBarI18n(this.locale)
@@ -310,3 +312,4 @@ export default {
   align-items: center;
 }
 </style>
+

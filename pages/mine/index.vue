@@ -55,6 +55,8 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
   export default {
     data() {
       return {
@@ -110,7 +112,7 @@
     },
     methods: {
       syncState() {
-        this.theme = uni.getStorageSync('appTheme') || 'light'
+        this.theme = resolveTheme()
         this.locale = this.$getLocale()
         this.$applyTabBarI18n(this.locale)
         this.$applyTabBarTheme(this.theme)
@@ -235,3 +237,4 @@
   font-weight: 500;
 }
 </style>
+

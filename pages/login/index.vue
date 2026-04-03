@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
 	export default {
 		data() {
 			return {
@@ -38,12 +40,12 @@
 			}
 		},
 		onLoad() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.theme = resolveTheme()
       this.locale = this.$getLocale()
       this.applyNavTheme()
 		},
 		onShow() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.theme = resolveTheme()
       this.locale = this.$getLocale()
       this.applyNavTheme()
 		},
@@ -182,3 +184,4 @@
     }
 	}
 </style>
+

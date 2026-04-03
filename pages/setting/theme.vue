@@ -47,6 +47,8 @@
 </template>
 
 <script>
+  import { getSystemTheme, syncStoredTheme } from '@/common/lib/theme.js'
+
   export default {
     data() {
       return {
@@ -96,13 +98,12 @@
     },
     methods: {
       getSystemTheme() {
-        const systemInfo = uni.getSystemInfoSync()
-        return systemInfo.hostTheme === 'dark' || systemInfo.theme === 'dark' ? 'dark' : 'light'
+        return getSystemTheme()
       },
       syncState() {
-        const systemTheme = this.getSystemTheme()
-        this.themeMode = uni.getStorageSync('appThemeMode') || uni.getStorageSync('appTheme') || 'system'
-        this.theme = this.themeMode === 'system' ? systemTheme : this.themeMode
+        const { themeMode, theme } = syncStoredTheme()
+        this.themeMode = themeMode
+        this.theme = theme
         this.locale = this.$getLocale()
         this.$applyTabBarI18n(this.locale)
         this.$applyTabBarTheme(this.theme)
@@ -112,11 +113,10 @@
         return this.$t(path, this.locale)
       },
       setThemeMode(mode) {
-        const systemTheme = this.getSystemTheme()
         this.themeMode = mode
-        this.theme = mode === 'system' ? systemTheme : mode
         uni.setStorageSync('appThemeMode', mode)
-        uni.setStorageSync('appTheme', this.theme)
+        const { theme } = syncStoredTheme()
+        this.theme = theme
         this.$applyTabBarTheme(this.theme)
         this.applyNavTheme()
       },

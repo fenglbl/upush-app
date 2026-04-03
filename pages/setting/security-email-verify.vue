@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
 const COUNTDOWN_SECONDS = 90
 const COUNTDOWN_KEY_PREFIX = 'securityVerifyCountdownUntil:'
 
@@ -109,7 +111,7 @@ export default {
   },
   methods: {
     syncState() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.theme = resolveTheme()
       this.locale = this.$getLocale()
       this.userInfo = uni.getStorageSync('userInfo') || {}
       this.oldEmail = this.userInfo.email || ''
@@ -283,3 +285,4 @@ export default {
   align-items: center;
 }
 </style>
+

@@ -113,17 +113,17 @@
     }
   ],
   "globalStyle": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "@navTextStyle",
     "navigationStyle": "custom",
     "navigationBarTitleText": "upsh",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarBackgroundColor": "@navBgColor",
+    "backgroundColor": "@pageBgColor"
   },
   "tabBar": {
-    "color": "#7f8fa4",
-    "selectedColor": "#1c8ef5",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
+    "color": "@tabBarTextColor",
+    "selectedColor": "@tabBarSelectedColor",
+    "backgroundColor": "@tabBarBgColor",
+    "borderStyle": "@tabBarBorderStyle",
     "list": [
       {
         "pagePath": "pages/home/index",

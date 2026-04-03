@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
 export default {
   data() {
     return {
@@ -39,7 +41,7 @@ export default {
   },
   methods: {
     syncState() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.theme = resolveTheme()
       this.locale = this.$getLocale()
       this.userInfo = uni.getStorageSync('userInfo') || {}
       this.applyNavTheme()
@@ -126,3 +128,4 @@ export default {
   margin-bottom: 24rpx;
 }
 </style>
+

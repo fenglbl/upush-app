@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { resolveTheme } from '@/common/lib/theme.js'
+
 export default {
   data() {
     return {
@@ -35,7 +37,7 @@ export default {
   },
   methods: {
     syncState() {
-      this.theme = uni.getStorageSync('appTheme') || 'light'
+      this.theme = resolveTheme()
       this.locale = this.$getLocale()
       this.applyNavTheme()
     },
@@ -128,3 +130,4 @@ export default {
   line-height: 1.7;
 }
 </style>
+
